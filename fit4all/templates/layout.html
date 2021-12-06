@@ -84,7 +84,15 @@
         <div class="col-md-4">
           <div class="content-section">
             <h3>Notes/Goals</h3>
-            {% block notesContent %} {% endblock notesContent %}
+            {% for note in notes%}
+             <article class="media content-section">
+              <div class="media-body">
+                <div class="article-metadata">
+                <a class="mr-2" href="{{ url_for('note', note_id=note.id) }}">{{ note.content }}</a>
+              </article>
+            {% endfor %}
+        
+          <a class="btn btn-outline-dark" href="{{ url_for('new_note') }}" role = "button">New note</a>
           </div>
         </div>
       </div>

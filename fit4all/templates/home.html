@@ -1,27 +1,17 @@
-{% extends "layout.html" %}
-{% block content%}
-	{% for post in posts%}
-	<article class="media content-section">
-  	 <div class="media-body">
-    	  <div class="article-metadata">
-           <a class="mr-2" href="#">{{ post.athlete.username }}</a>
-    	   <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
-   	  </div>
-    	  <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
-    	  <p class="article-content">{{ post.content }}</p>
- 	 </div>
-	</article>
-	{% endfor %}
-{% endblock content %}
-
-{% block notesContent %}
-	{% for note in notes%}
-		<article class="media content-section">
-			<div class="media-body">
-				<div class="article-metadata">
-				<a class="mr-2" href="{{ url_for('note', note_id=note.id) }}">{{ note.content }}</a>
-		</article>
-	{% endfor %}
-
-	<a class="btn btn-outline-dark" href="{{ url_for('new_note') }}" role = "button">New note</a>
-{% endblock notesContent %}
+{% extends "layout.html" %} {% block content%} {% for post in posts%}
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2" href="#">{{ post.athlete.username }}</a>
+      <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
+    </div>
+    <h2>
+      <a class="article-title" href="{{ url_for('post', post_id=post.id) }}"
+        >{{ post.title }}</a
+      >
+    </h2>
+    <p class="article-content">{{ post.content }}</p>
+  </div>
+</article>
+{% endfor %} {% endblock content %} {% block notesContent %} {% endblock
+notesContent %}
