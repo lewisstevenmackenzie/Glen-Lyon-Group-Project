@@ -122,6 +122,13 @@ def delete_account(user_id):
     flash('Your account has been deleted!', 'success')
     return redirect(url_for('login'))
 
+
+@app.route("/not/<note_id>")
+def note(note_id):
+    note = Note.query.get_or_404(note_id)
+    return render_template('note.html', title = note.title, note = note)
+
+
 @app.route("/note/new", methods=['GET', 'POST'])
 @login_required
 def new_note():
