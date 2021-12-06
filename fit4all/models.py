@@ -31,7 +31,7 @@ class Post(db.Model):
         return f"Post('{self.title}', '{self.date_posted}')"
 
 class Notes(db.Model):
-    id = db.Column(db.integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String(200), nullable=False)
 
     def __repr__(self):
