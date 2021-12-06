@@ -110,7 +110,8 @@ def delete_post(post_id):
 def account(user_id):
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
     user = User.query.get_or_404(user_id)
-    return render_template('account.html',  user = user, notes = notes)
+    profile_image = url_for('static', filename='profile_images/' + current_user.image_file)
+    return render_template('account.html',  user = user, notes = notes, profile_image = profile_image)
 
 @app.route("/account/<int:user_id>/delete", methods=['GET', 'POST'])
 @login_required
