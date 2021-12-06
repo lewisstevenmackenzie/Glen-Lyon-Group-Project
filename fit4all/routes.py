@@ -100,3 +100,26 @@ def delete_post(post_id):
     db.session.commit()
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('home'))
+
+@app.route("/account/<int:user_id>", methods=['GET', 'POST'])
+@login_required
+def account():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(title = form.title.data, content = form.content.data, athlete = current_user)
+        db.session.add(post)
+        db.session.commit()
+        flash('Post created', 'success')
+        return redirect(url_for('home'))
+    return render_template('create_post.html', title = 'New Post', form = form,legend = 'Create Post')
+
+@app.route("/account/<int:user_id>/delete", methods=['GET', 'POST'])
+@login_required
+def delete_account(user_id):
+    user = User.query.get_or_404(user_id)
+    if user.athlete != current_user:
+        abort(403)
+    db.session.delete(user)
+    db.session.commit()
+    flash('Your account has been deleted!', 'success')
+    return redirect(url_for('login'))

@@ -31,3 +31,8 @@ class PostForm(FlaskForm):
     content = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Post')
 
+class AccountForm(FlaskForm):
+    username = StringField('UserName', validators=[DataRequired()])
+    email = StringField('email', validators=[DataRequired()])
+    password = StringField('password', validators=[DataRequired()])
+    
