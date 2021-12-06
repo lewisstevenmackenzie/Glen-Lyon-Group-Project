@@ -6,8 +6,10 @@ from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route("/")
 def home():
-    posts = Post.query.filter_by(user_id=current_user.id).all()
-    return render_template('home.html', posts = posts)
+    if current_user.is_authenticated:
+        posts = Post.query.filter_by(user_id=current_user.id).all()
+        return render_template('home.html', posts = posts)
+    return render_template('home.html')
 
 @app.route("/about")
 def about():
