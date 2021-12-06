@@ -37,5 +37,6 @@ class AccountForm(FlaskForm):
     password = StringField('password', validators=[DataRequired()])
 
 class NoteForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
     SubmitField = SubmitField('Note')
