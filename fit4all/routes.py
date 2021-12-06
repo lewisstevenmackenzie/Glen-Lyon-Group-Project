@@ -11,7 +11,8 @@ def home():
         posts.reverse()
         notes = Note.query.filter_by(note_user_id=current_user.id).all()
         return render_template('home.html', posts = posts, notes = notes)
-    return render_template('home.html')
+    
+    return render_template('register.html', )
 
 @app.route("/about")
 def about():
