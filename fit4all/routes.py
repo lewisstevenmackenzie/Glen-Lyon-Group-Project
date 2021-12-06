@@ -126,7 +126,7 @@ def delete_account(user_id):
 @app.route("/not/<note_id>")
 def note(note_id):
     note = Note.query.get_or_404(note_id)
-    return render_template('note.html', title = note.title, note = note)
+    return render_template('note.html', note = note)
 
 
 @app.route("/note/new", methods=['GET', 'POST'])
