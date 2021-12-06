@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request, abort
 from fit4all import app, db, bcrypt
-from fit4all.forms import RegistrationForm, LoginForm, PostForm
+from fit4all.forms import RegistrationForm, LoginForm, PostForm, NoteForm
 from fit4all.models import User, Post, Note
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -140,3 +140,19 @@ def new_note():
         flash('note created', 'success')
         return redirect(url_for('home'))
     return render_template('create_note.html', title = 'New note', form = form,legend = 'Create note')
+
+@app.route("/note/<int:note_id>/edit", methods=['GET', 'POST'])
+@login_required
+def edit_note(note_id):
+    note = Note.query.get_or_404(note_id)
+    if note.note_user_id != current_user.id:
+        abort(403)
+    form = NoteForm()
+    if form.validate_on_submit():
+        note.content = form.content.data
+        db.session.commit()
+        flash('Your note has been updated!', 'success')
+        return redirect(url_for('note', note=note.id))
+    elif request.method == 'GET':
+        form.content.data = note.content
+    return render_template('create_note.html', title='edit note', form=form, legend='edit note')
