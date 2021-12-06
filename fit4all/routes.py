@@ -127,7 +127,7 @@ def delete_account(user_id):
 def new_note():
     form = PostForm()
     if form.validate_on_submit():
-        note = Note(content = form.content.data, user_id = current_user)
+        note = Note(content = form.content.data, note_user_id = current_user.id)
         db.session.add(note)
         db.session.commit()
         flash('note created', 'success')
