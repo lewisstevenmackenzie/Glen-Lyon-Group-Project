@@ -72,7 +72,7 @@ def post(post_id):
 
 @app.route("/post/<int:post_id>/edit", methods=['GET', 'POST'])
 @login_required
-def update_post(post_id):
+def edit_post(post_id):
     post = Post.query.get_or_404(post_id)
     if post.athlete != current_user:
         abort(403)
