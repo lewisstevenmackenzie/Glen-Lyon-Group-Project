@@ -12,7 +12,7 @@ def home():
         notes = Note.query.filter_by(note_user_id=current_user.id).all()
         return render_template('home.html', posts = posts, notes = notes)
     
-    return url_for('register')
+    return register()
 
 @app.route("/about")
 def about():
