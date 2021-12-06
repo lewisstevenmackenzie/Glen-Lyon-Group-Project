@@ -101,7 +101,7 @@ def delete_post(post_id):
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('home'))
 
-@app.route("/account/<int:user_id>", methods=['GET', 'POST'])
+@app.route("/account/<int:user_id>")
 @login_required
 def account(user_id):
     user = User.query.get_or_404(user_id)
