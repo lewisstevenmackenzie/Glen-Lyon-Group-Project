@@ -152,7 +152,7 @@ def edit_note(note_id):
         note.content = form.content.data
         db.session.commit()
         flash('Your note has been updated!', 'success')
-        return redirect(url_for('note', note=note.id))
+        return redirect(url_for('note', note_id=note.id))
     elif request.method == 'GET':
         form.content.data = note.content
     return render_template('create_note.html', title='edit note', form=form, legend='edit note')
