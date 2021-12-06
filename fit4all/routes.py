@@ -71,12 +71,14 @@ def new_post():
 
 @app.route("/post/<post_id>")
 def post(post_id):
+    notes = Note.query.filter_by(note_user_id=current_user.id).all()
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title = post.title, post = post)
+    return render_template('post.html', title = post.title, post = post, notes = notes)
 
 @app.route("/post/<int:post_id>/edit", methods=['GET', 'POST'])
 @login_required
 def edit_post(post_id):
+    notes = Note.query.filter_by(note_user_id=current_user.id).all()
     post = Post.query.get_or_404(post_id)
     if post.athlete != current_user:
         abort(403)
@@ -90,11 +92,12 @@ def edit_post(post_id):
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
-    return render_template('create_post.html', title='edit Post', form=form, legend='edit Post')
+    return render_template('create_post.html', title='edit Post', form=form, legend='edit Post', notes = notes)
 
 @app.route("/post/<int:post_id>/delete", methods=['GET', 'POST'])
 @login_required
 def delete_post(post_id):
+    notes = Note.query.filter_by(note_user_id=current_user.id).all()
     post = Post.query.get_or_404(post_id)
     if post.athlete != current_user:
         abort(403)
@@ -106,8 +109,9 @@ def delete_post(post_id):
 @app.route("/account/<int:user_id>")
 @login_required
 def account(user_id):
+    notes = Note.query.filter_by(note_user_id=current_user.id).all()
     user = User.query.get_or_404(user_id)
-    return render_template('account.html',  user = user)
+    return render_template('account.html',  user = user, notes = notes)
 
 @app.route("/account/<int:user_id>/delete", methods=['GET', 'POST'])
 @login_required
@@ -126,13 +130,15 @@ def delete_account(user_id):
 
 @app.route("/note/<note_id>")
 def note(note_id):
+    notes = Note.query.filter_by(note_user_id=current_user.id).all()
     note = Note.query.get_or_404(note_id)
-    return render_template('note.html', note = note)
+    return render_template('note.html', note = note, notes = notes)
 
 
 @app.route("/note/new", methods=['GET', 'POST'])
 @login_required
 def new_note():
+    notes = Note.query.filter_by(note_user_id=current_user.id).all()
     form = NoteForm()
     if form.validate_on_submit():
         note = Note(content = form.content.data, note_user_id = current_user.id)
@@ -140,11 +146,12 @@ def new_note():
         db.session.commit()
         flash('note created', 'success')
         return redirect(url_for('home'))
-    return render_template('create_note.html', title = 'New note', form = form, legend = 'Create note')
+    return render_template('create_note.html', title = 'New note', form = form, legend = 'Create note', notes = notes)
 
 @app.route("/note/<int:note_id>/edit", methods=['GET', 'POST'])
 @login_required
 def edit_note(note_id):
+    notes = Note.query.filter_by(note_user_id=current_user.id).all()
     note = Note.query.get_or_404(note_id)
     if note.note_user_id != current_user.id:
         abort(403)
@@ -156,11 +163,12 @@ def edit_note(note_id):
         return redirect(url_for('note', note_id=note.id))
     elif request.method == 'GET':
         form.content.data = note.content
-    return render_template('create_note.html', title='edit note', form=form, legend='edit note')
+    return render_template('create_note.html', title='edit note', form=form, legend='edit note', notes = notes)
 
 @app.route("/note/<int:note_id>/delete", methods=['GET', 'POST'])
 @login_required
 def delete_note(note_id):
+    notes = Note.query.filter_by(note_user_id=current_user.id).all()
     note = Note.query.get_or_404(note_id)
     if note.note_user_id != current_user.id:
         abort(403)
