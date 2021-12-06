@@ -132,7 +132,7 @@ def note(note_id):
 @app.route("/note/new", methods=['GET', 'POST'])
 @login_required
 def new_note():
-    form = PostForm()
+    form = NoteForm()
     if form.validate_on_submit():
         note = Note(content = form.content.data, note_user_id = current_user.id)
         db.session.add(note)
