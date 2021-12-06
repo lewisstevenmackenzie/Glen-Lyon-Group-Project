@@ -97,7 +97,6 @@ def edit_post(post_id):
 @app.route("/post/<int:post_id>/delete", methods=['GET', 'POST'])
 @login_required
 def delete_post(post_id):
-    notes = Note.query.filter_by(note_user_id=current_user.id).all()
     post = Post.query.get_or_404(post_id)
     if post.athlete != current_user:
         abort(403)
