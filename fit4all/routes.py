@@ -70,20 +70,20 @@ def post(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('post.html', title = post.title, post = post)
 
-@app.route("/post/<post_id>/edit", methods=['GET', 'POST'])
+@app.route("/post/<int:post_id>/edit", methods=['GET', 'POST'])
 @login_required
-def edit_post(post_id):
+def update_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if post.athlete != current_user:
+    if post.athelte != current_user:
         abort(403)
     form = PostForm()
-    if form.valid_on_submit():
+    if form.validate_on_submit():
         post.title = form.title.data
         post.content = form.content.data
         db.session.commit()
-        flash('Post updated', 'success')
-        return redirect(url_for('post', post_id = post.id))
+        flash('Your post has been updated!', 'success')
+        return redirect(url_for('post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
-    return render_template('create_post.html', title = 'Edit Post', form = form, legend = 'Update Post')
+    return render_template('create_post.html', title='edit Post', form=form, legend='edit Post')
