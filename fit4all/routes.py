@@ -1,14 +1,15 @@
 from flask import render_template, url_for, flash, redirect, request, abort
 from fit4all import app, db, bcrypt
 from fit4all.forms import RegistrationForm, LoginForm, PostForm
-from fit4all.models import User, Post
+from fit4all.models import User, Post, Note
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route("/")
 def home():
     if current_user.is_authenticated:
         posts = Post.query.filter_by(user_id=current_user.id).all()
-        return render_template('home.html', posts = posts)
+        notes = Note.query.filter_by(note_user_id=current_user.id).all()
+        return render_template('home.html', posts = posts, notes = notes)
     return render_template('home.html')
 
 @app.route("/about")

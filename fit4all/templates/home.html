@@ -13,3 +13,13 @@
 	</article>
 	{% endfor %}
 {% endblock content %}
+
+{% block notesContent %}
+{% for note in notes%}
+<article class="media content-section">
+	  <div class="media-body">
+		<div class="article-metadata">
+		  <a class="mr-2" href="#">{{ note.content }}</a>
+  </article>
+{% endfor %}
+{% endblock notesContent %}

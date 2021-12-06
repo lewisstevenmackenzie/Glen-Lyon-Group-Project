@@ -84,13 +84,7 @@
         <div class="col-md-4">
           <div class="content-section">
             <h3>Notes/Goals</h3>
-            {% for note in notes%}
-            <article class="media content-section">
-                  <div class="media-body">
-                    <div class="article-metadata">
-                      <a class="mr-2" href="#">{{ note.content }}</a>
-              </article>
-            {% endfor %}
+            {% block notesContent %} {% endblock notesContent %}
           </div>
         </div>
       </div>
