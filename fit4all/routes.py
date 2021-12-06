@@ -111,7 +111,7 @@ def account(user_id):
 @login_required
 def delete_account(user_id):
     user = User.query.get_or_404(user_id)
-    if user.athlete != current_user:
+    if user.id != current_user.id:
         abort(403)
     db.session.delete(user)
     db.session.commit()
