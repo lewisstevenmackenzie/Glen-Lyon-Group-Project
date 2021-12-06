@@ -57,7 +57,7 @@ def logout():
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        post = post(title = form.title.data, content = form.content.data, athlete = current_user)
+        post = Post(title = form.title.data, content = form.content.data, athlete = current_user)
         db.session.add(post)
         db.session.commit()
         flash('Post created', 'success')
