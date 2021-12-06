@@ -1,19 +1,19 @@
 from flask import render_template, url_for, flash, redirect, request
 from fit4all import app, db, bcrypt
-from fit4all.forms import RegistrationForm, LoginForm
+from fit4all.forms import RegistrationForm, LoginForm, PostForm
 from fit4all.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
 
 posts = [
     {
-        'athlete': 'Corey Schafer',
+        'athlete': 'Lewis Mackenzie',
         'title': 'Blog Post 1',
         'content': 'First post content',
         'date': 'April 20, 2018'
     },
     {
-        'athlete': 'Jane Doe',
+        'athlete': 'Lee Beaver',
         'title': 'Blog Post 2',
         'content': 'Second post content',
         'date': 'April 21, 2018'
@@ -69,3 +69,11 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+@app.route("/post/new", methods=['GET', 'POST'])
+@login_required
+def new_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        flash('Post created', 'success')
+        return redirect(url_for('home'))
+    return render_template('create_post.html', title = 'New Post', form = form)
