@@ -103,9 +103,9 @@ def delete_post(post_id):
 
 @app.route("/account/<int:user_id>", methods=['GET', 'POST'])
 @login_required
-def account(current_user):
-    account = User.query.get_or_404(current_user.id)
-    return render_template('account.html',  User = account)
+def account(user_id):
+    user = User.query.get_or_404(user_id)
+    return render_template('account.html',  user = user)
 
 @app.route("/account/<int:user_id>/delete", methods=['GET', 'POST'])
 @login_required

@@ -3,7 +3,7 @@
 <article class="media content-section">
     <div class="media-body">
        <div class="article-metadata">
-        <a class="mr-2" href="#">{{ user.athlete.username }}</a>
+        <a class="mr-2" href="#">{{ current_user.id }}</a>
         {% if user.athlete == current_user %}
         <div>
           <a class="btn btn-danger btn-sm mt mb-1" href="{{ url_for('delete_account', user_id=user.id) }}">Delete Account</a>
