@@ -39,4 +39,4 @@ class AccountForm(FlaskForm):
 class NoteForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
-    Submit = SubmitField('Note')
+    submit = SubmitField('Note')
