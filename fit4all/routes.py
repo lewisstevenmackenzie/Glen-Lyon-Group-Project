@@ -156,3 +156,14 @@ def edit_note(note_id):
     elif request.method == 'GET':
         form.content.data = note.content
     return render_template('create_note.html', title='edit note', form=form, legend='edit note')
+
+@app.route("/note/<int:note_id>/delete", methods=['GET', 'POST'])
+@login_required
+def delete_note(note_id):
+    note = Note.query.get_or_404(note_id)
+    if note.note_user_id != current_user.id:
+        abort(403)
+    db.session.delete(note)
+    db.session.commit()
+    flash('Your note has been deleted!', 'success')
+    return redirect(url_for('home'))
