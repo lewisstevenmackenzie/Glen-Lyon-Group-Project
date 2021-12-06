@@ -58,6 +58,7 @@ def logout():
 @app.route("/post/new", methods=['GET', 'POST'])
 @login_required
 def new_post():
+    notes = Note.query.filter_by(note_user_id=current_user.id).all()
     form = PostForm()
     if form.validate_on_submit():
         post = Post(title = form.title.data, content = form.content.data, athlete = current_user)
@@ -65,7 +66,7 @@ def new_post():
         db.session.commit()
         flash('Post created', 'success')
         return redirect(url_for('home'))
-    return render_template('create_post.html', title = 'New Post', form = form,legend = 'Create Post')
+    return render_template('create_post.html', title = 'New Post', form = form,legend = 'Create Post', notes = notes)
 
 
 @app.route("/post/<post_id>")
