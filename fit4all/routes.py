@@ -7,7 +7,8 @@ from flask_login import login_user, current_user, logout_user, login_required
 @app.route("/")
 def home():
     if current_user.is_authenticated:
-        posts = Post.query.filter_by(user_id=current_user.id).all().order_by("Post.id desc")
+        posts = Post.query.filter_by(user_id=current_user.id).all()
+        posts.reverse()
         notes = Note.query.filter_by(note_user_id=current_user.id).all()
         return render_template('home.html', posts = posts, notes = notes)
     return render_template('home.html')
