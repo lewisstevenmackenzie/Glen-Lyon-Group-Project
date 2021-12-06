@@ -4,6 +4,24 @@ from fit4all.forms import RegistrationForm, LoginForm
 from fit4all.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 
+
+posts = [
+    {
+        'athlete': 'Corey Schafer',
+        'title': 'Blog Post 1',
+        'content': 'First post content',
+        'date': 'April 20, 2018'
+    },
+    {
+        'athlete': 'Jane Doe',
+        'title': 'Blog Post 2',
+        'content': 'Second post content',
+        'date': 'April 21, 2018'
+    }
+]
+
+
+
 @app.route("/")
 def home():
     return render_template('home.html', posts = posts)

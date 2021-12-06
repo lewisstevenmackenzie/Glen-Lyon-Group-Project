@@ -13,8 +13,6 @@ class RegistrationForm(FlaskForm):
     
     confirm_password = PasswordField('confirm password', validators=[DataRequired(), EqualTo('password')])
 
-    profilepic = FileField(validators=[ FileRequired(), FileAllowed(['jpg'], 'Only jpg!') ])
-
     submit = SubmitField('Sign Up')
 
 
