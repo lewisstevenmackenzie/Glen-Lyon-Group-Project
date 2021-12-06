@@ -1,5 +1,5 @@
 from datetime import datetime
-from SET09103Coursework import db, login_manager
+from fit4all import db, login_manager
 from flask_login import UserMixin
 
 
