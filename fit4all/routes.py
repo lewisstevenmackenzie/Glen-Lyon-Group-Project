@@ -121,3 +121,15 @@ def delete_account(user_id):
     db.session.commit()
     flash('Your account has been deleted!', 'success')
     return redirect(url_for('login'))
+
+@app.route("/note/new", methods=['GET', 'POST'])
+@login_required
+def new_note():
+    form = PostForm()
+    if form.validate_on_submit():
+        note = Note(content = form.content.data, user_id = current_user)
+        db.session.add(note)
+        db.session.commit()
+        flash('note created', 'success')
+        return redirect(url_for('home'))
+    return render_template('create_note.html', title = 'New note', form = form,legend = 'Create note')
