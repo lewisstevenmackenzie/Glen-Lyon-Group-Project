@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='athlete', lazy=True)
+    notes = db.relationship('Note', backref='athlete', lazy=True)
 
     def __repre__(self):
         return f"User('{self.username}', '{self.email}', '{self.profile_image}')"
@@ -28,3 +29,10 @@ class Post(db.Model):
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
+
+class Notes(db.Model):
+    id = db.Column(db.integer, primary_key=True)
+    content = db.Column(db.String(200), nullable=False)
+
+    def __repr__(self):
+        return f"Note('{self.content}')"
