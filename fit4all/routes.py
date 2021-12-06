@@ -139,7 +139,7 @@ def new_note():
         db.session.commit()
         flash('note created', 'success')
         return redirect(url_for('home'))
-    return render_template('create_note.html', title = 'New note', form = form,legend = 'Create note')
+    return render_template('create_note.html', title = 'New note', form = form, legend = 'Create note')
 
 @app.route("/note/<int:note_id>/edit", methods=['GET', 'POST'])
 @login_required
@@ -152,7 +152,7 @@ def edit_note(note_id):
         note.content = form.content.data
         db.session.commit()
         flash('Your note has been updated!', 'success')
-        return redirect(url_for('note', title='edit note', note=note.id))
+        return redirect(url_for('note', note=note.id))
     elif request.method == 'GET':
         form.content.data = note.content
     return render_template('create_note.html', title='edit note', form=form, legend='edit note')
