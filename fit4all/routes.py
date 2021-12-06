@@ -123,7 +123,7 @@ def delete_account(user_id):
     return redirect(url_for('login'))
 
 
-@app.route("/not/<note_id>")
+@app.route("/note/<note_id>")
 def note(note_id):
     note = Note.query.get_or_404(note_id)
     return render_template('note.html', note = note)
