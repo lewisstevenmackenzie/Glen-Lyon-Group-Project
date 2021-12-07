@@ -5,7 +5,7 @@
     <div class="media-body">
       <h2 class="account-heading">{{ current_user.username }}</h2>
       <p class="text-secondary">{{ current_user.email }}</p>
-      <p class="text-secondary">activties: + {{ len(current_user.posts) }}</p>
+      <p class="text-secondary">activties: + {{ current_user.posts }}</p>
     </div>
   </div>
 </div>
