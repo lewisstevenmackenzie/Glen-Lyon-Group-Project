@@ -20,7 +20,7 @@ def about():
         notes = Note.query.filter_by(note_user_id=current_user.id).all()
         return render_template('about.html', title = 'about', notes = notes)
     return render_template('about.html', title = 'about')
-    
+
 @app.route("/error404")
 def error404():
     return render_template('error404.html', title = 'error404')
@@ -116,8 +116,10 @@ def account(user_id):
     user = User.query.get_or_404(user_id)
     posts =Post. query.filter_by(user_id=user_id).all()
     posts.reverse()
-
-    userPostsNum = len(posts)
+    if not posts:
+        userPostsNum = 0
+    else: 
+        userPostsNum = len(posts)
     profile_image = url_for('static', filename='profile_images/' + current_user.image_file)
     return render_template('account.html',  user = user, notes = notes, profile_image = profile_image, userPostsnum = userPostsNum, posts = posts)
 
