@@ -13,11 +13,12 @@
 <article class="media content-section">
   <div class="media-body">
     <div class="article-metadata">
-      <a class="font-weight-bold">{{ posts[0].athlete.username }}</a>
+      <p class="font-weight-bold">{{ posts[0].athlete.username }}</p>
       <small class="text-muted">{{ posts[0].date.strftime('%Y-%m-%d') }}</small>
     </div>
     <h2>
-      <a class="font-weight-bold">{{ posts[0].title }}</a>
+      <p class="article-title">{{ posts[0].title }}</p>
+      >
     </h2>
     <p class="article-content">{{ posts[0].content }}</p>
   </div>
