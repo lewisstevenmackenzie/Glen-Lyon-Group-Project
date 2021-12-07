@@ -111,7 +111,8 @@ def delete_post(post_id):
 def account(user_id):
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
     user = User.query.get_or_404(user_id)
-    posts =Post. query.filter_by(user_id=current_user.id).all()
+    posts =Post. query.filter_by(user_id=user_id).all()
+    posts.reverse()
 
     userPostsNum = len(posts)
     profile_image = url_for('static', filename='profile_images/' + current_user.image_file)
