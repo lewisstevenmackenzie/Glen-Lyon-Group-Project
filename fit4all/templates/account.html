@@ -18,7 +18,7 @@
     <small class="text-muted">{{ posts[0].date.strftime('%Y-%m-%d') }}</small>
   </div>
   <h2>
-    <a class="article-title" href="{{ url_for('post', post_id=post.id) }}"
+    <a class="article-title" href="{{ url_for('post', post_id=post[0].id) }}"
       >{{ posts[0].title }}</a
     >
   </h2>
