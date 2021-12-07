@@ -32,6 +32,17 @@
     <div class="article-metadata">
       {% if user.id == current_user.id %}
       <div>
+        <form>
+          <div class="form-group">
+            <label for="exampleFormControlFile1">Example file input</label>
+            <input
+              type="file"
+              class="form-control-file"
+              id="exampleFormControlFile1"
+            />
+          </div>
+        </form>
+
         <a class="btn btn-primary btn-sm mt mb-1" href="#"
           >Update Profile Image</a
         >
