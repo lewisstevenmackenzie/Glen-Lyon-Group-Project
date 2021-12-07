@@ -10,6 +10,7 @@
   </div>
 </div>
 
+{% if userPostNum != 0 %}
 <article class="media content-section">
   <div class="media-body">
     <div class="article-metadata">
@@ -24,6 +25,7 @@
     <p class="article-content">Description: {{ posts[0].content }}</p>
   </div>
 </article>
+{% endif %}
 
 <article class="media content-section">
   <div class="media-body">
