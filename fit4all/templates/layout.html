@@ -42,8 +42,8 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="/">Home</a>
-              <a class="nav-item nav-link" href="/about">About</a>
+              <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
+              <a class="nav-item nav-link" href="{{ url_for('About') }}">About</a>
             </div>
             <div class="navbar-nav">
               {% if current_user.is_authenticated %}
@@ -51,7 +51,7 @@
               class="nav-item nav-link"
               href="{{ url_for('explore_users') }}"
               >Explore</a
-            >
+              >
               <a
                 class="nav-item nav-link"
                 href="{{ url_for('account', user_id=current_user.id) }}"

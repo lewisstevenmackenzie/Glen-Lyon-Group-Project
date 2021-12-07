@@ -1,4 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>About Page </h1>
-{% endblock content %}
+<h1 class="display-1">About Us</h>
+<article class="media content-section">
+    <div class="media-body">
+         <div class="article-metadata">
+         <p class="text-justify">Welcome to Fit4All, Fit4All is a new way tp train. Users can ceate accounts, log activities and add goals to their home page. User will have the ability to follow other athletes and see how their stats compare with their friends.</p>
+         <div>
+      </div>
+       <h2 class="article-title"></h2>{{ post.title }}</h2>
+       <p class="article-content">{{ post.content }}</p>
+   </div>
+ </article>{% endblock content %}
