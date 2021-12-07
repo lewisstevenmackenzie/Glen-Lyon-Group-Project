@@ -5,11 +5,27 @@
     <div class="media-body">
       <h2 class="account-heading">{{ user.username }}</h2>
       <p class="text-secondary">{{ user.email }}</p>
-      <p class="text-secondary">activties: {{ userPostsnum }}</p>
+      <p class="text-secondary">Number of Activties: {{ userPostsnum }}</p>
     </div>
   </div>
 </div>
-s
+
+<article class="media content-section">
+  <div class="article-metadata">
+    <a class="mr-2"
+      >{{ posts[0].athlete.username }}</a
+    >
+    <small class="text-muted">{{ posts[0].date.strftime('%Y-%m-%d') }}</small>
+  </div>
+  <h2>
+    <a class="article-title" href="{{ url_for('post', post_id=post.id) }}"
+      >{{ posts[0].title }}</a
+    >
+  </h2>
+  <p class="article-content">{{ posts[0].content }}</p>
+</div>
+</article>
+
 <article class="media content-section">
   <div class="media-body">
     <div class="article-metadata">
