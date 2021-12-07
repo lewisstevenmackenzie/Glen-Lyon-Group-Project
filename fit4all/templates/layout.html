@@ -51,6 +51,11 @@
                 >New Post</a
               >
               <a
+              class="nav-item nav-link"
+              href="{{ url_for('explore_users') }}"
+              >Explore</a
+            >
+              <a
                 class="nav-item nav-link"
                 href="{{ url_for('account', user_id=current_user.id) }}"
                 >Account</a

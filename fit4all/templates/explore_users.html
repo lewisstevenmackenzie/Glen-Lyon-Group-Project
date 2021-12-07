@@ -1,0 +1,10 @@
+{% extends "layout.html" %} {% block content%} {% for user in users%}
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2" href="{{ url_for('account', user_id=post.user_id) }}"
+        >{{ user.username }}</a
+      >
+  </div>
+</article>
+{% endfor %} {% endblock content %}

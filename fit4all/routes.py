@@ -37,7 +37,6 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -178,3 +177,13 @@ def delete_note(note_id):
     db.session.commit()
     flash('Your note has been deleted!', 'success')
     return redirect(url_for('home'))
+
+@app.route("/exploreUsers")
+def explore_users():
+    if current_user.is_authenticated:
+        users = User.query.all()
+        users.reverse()
+        notes = Note.query.filter_by(note_user_id=current_user.id).all()
+        return render_template('explore_users.html', users = users, notes = notes)
+    
+    return register()
