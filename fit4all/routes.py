@@ -116,10 +116,12 @@ def account(user_id):
     user = User.query.get_or_404(user_id)
     posts =Post. query.filter_by(user_id=user_id).all()
     posts.reverse()
-    if not posts:
+
+    userPostsNum = len(posts)
+
+    if userPostsNum < 1:
         userPostsNum = 0
-    else: 
-        userPostsNum = len(posts)
+        
     profile_image = url_for('static', filename='profile_images/' + current_user.image_file)
     return render_template('account.html',  user = user, notes = notes, profile_image = profile_image, userPostsnum = userPostsNum, posts = posts)
 
