@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     notes = db.relationship('Note', backref='athlete', lazy=True)
 
     def __repre__(self):
-        return f"User('{self.username}', '{self.email}', '{self.profile_image}')"
+        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
