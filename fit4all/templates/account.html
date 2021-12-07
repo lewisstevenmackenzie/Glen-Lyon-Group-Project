@@ -11,19 +11,16 @@
 </div>
 
 <article class="media content-section">
-  <div class="article-metadata">
-    <a class="mr-2"
-      >{{ posts[0].athlete.username }}</a
-    >
-    <small class="text-muted">{{ posts[0].date.strftime('%Y-%m-%d') }}</small>
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2">{{ post[0].athlete.username }}</a>
+      <small class="text-muted">{{ post[0].date.strftime('%Y-%m-%d') }}</small>
+    </div>
+    <h2>
+      <a class="article-title">{{ post[0].title }}</a>
+    </h2>
+    <p class="article-content">{{ post[0].content }}</p>
   </div>
-  <h2>
-    <a class="article-title" 
-      >{{ posts[0].title }}</a
-    >
-  </h2>
-  <p class="article-content">{{ posts[0].content }}</p>
-</div>
 </article>
 
 <article class="media content-section">
