@@ -16,9 +16,11 @@ def home():
 
 @app.route("/about")
 def about():
-    notes = Note.query.filter_by(note_user_id=current_user.id).all()
-    return render_template('about.html', title = 'about', notes = notes)
-
+    if current_user.is_authenticated:
+        notes = Note.query.filter_by(note_user_id=current_user.id).all()
+        return render_template('about.html', title = 'about', notes = notes)
+    return render_template('about.html', title = 'about')
+    
 @app.route("/error404")
 def error404():
     return render_template('error404.html', title = 'error404')
