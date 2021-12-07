@@ -16,7 +16,8 @@ def home():
 
 @app.route("/about")
 def about():
-    return render_template('about.html', title = 'about')
+    notes = Note.query.filter_by(note_user_id=current_user.id).all()
+    return render_template('about.html', title = 'about', notes = notes)
 
 @app.route("/error404")
 def error404():
