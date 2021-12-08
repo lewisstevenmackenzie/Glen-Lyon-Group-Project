@@ -5,6 +5,7 @@ from fit4all.forms import AccountForm, RegistrationForm, LoginForm, PostForm, No
 from fit4all.models import User, Post, Note
 from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.utils import secure_filename
+from PIL import Image
 
 @app.route("/")
 def home():
@@ -119,6 +120,15 @@ def account(user_id):
     posts =Post. query.filter_by(user_id=user_id).all()
     posts.reverse()
 
+    form = AccountForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        db.session.commit()
+        flash('Your account picture has been updated!', 'success')
+        return redirect(url_for('account'))
+
     userPostsNum = len(posts)
 
     if userPostsNum < 1:
@@ -128,14 +138,17 @@ def account(user_id):
     return render_template('account.html', user = user, notes = notes, profile_image = profile_image, userPostsnum = userPostsNum, posts = posts)
 
 
-@app.route('/uploads/<filename>')
-@login_required
-def upload_profile_pic(filename):
-    if request.method=='POST':
-        file = request.files["file"]
-        file.save(os.path.join("static/profile_images", file.filename))
-        return render_template('account.html')
-    return render_template('account.html')
+def save_picture(form_picture):
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
 
 @app.route("/account/<int:user_id>/delete", methods=['GET', 'POST'])
 @login_required
