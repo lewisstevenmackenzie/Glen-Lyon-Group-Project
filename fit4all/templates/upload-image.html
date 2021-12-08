@@ -1,0 +1,23 @@
+{% extends "layout.html" %} {% block content %}
+<h1 class="display-1">About Us</h1>
+<article class="media content-section">
+  <div class="media-body">
+    <form action="upload-image" methods="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label>Select Image</label>
+        <div class="custom-file">
+          <input
+            type="file"
+            class="custom-file-input"
+            name="image"
+            id="image"
+          />
+          <label class="custom-file-label" for="image">Select image...</label>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Upload Image</button>
+    </form>
+  </div>
+</article>
+{% endblock content %}
