@@ -35,8 +35,6 @@ class AccountForm(FlaskForm):
     username = StringField('UserName', validators=[DataRequired()])
     email = StringField('email', validators=[DataRequired()])
     password = StringField('password', validators=[DataRequired()])
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
-    submit = SubmitField('Update')
 
 class NoteForm(FlaskForm):
     content = TextAreaField('Content', validators=[DataRequired()])
