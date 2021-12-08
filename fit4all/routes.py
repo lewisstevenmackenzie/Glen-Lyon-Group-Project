@@ -67,7 +67,17 @@ def new_post():
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
     form = PostForm()
     if form.validate_on_submit():
+
         post = Post(title = form.title.data, content = form.content.data, athlete = current_user)
+
+        if request.files:
+
+            gpxfile = request.files["gpxfile"]
+
+            gpxfile.save(os.path.join(app.config["GPX_UPLOADS"], gpxfile.filename))
+            post.gpx_file=gpxfile.filename
+
+        
         db.session.add(post)
         db.session.commit()
         flash('Post created', 'success')

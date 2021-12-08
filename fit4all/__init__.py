@@ -6,7 +6,7 @@ from flask_login import LoginManager
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8656d430a91e21e849364b1dadde70eb'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
-app.config["UPLOAD_PATH"] = '/static/profile_images/'
+app.config["GPX_UPLOADS"] = "/home/40445231/SET09103Coursework/fit4all/static/gps_files"
 app.config["IMAGE_UPLOADS"] = "/home/40445231/SET09103Coursework/fit4all/static/profile_images"
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
