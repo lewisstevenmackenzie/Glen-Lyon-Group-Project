@@ -9,7 +9,7 @@ Restart = always
 killSignal = SIGQUIT
 Type = notify
 StandardError = syslog
-NotifyAccess =all
+NotifyAccess = all
 
-[ Install ]
+[Install]
 WantedBy = multi-user.target
