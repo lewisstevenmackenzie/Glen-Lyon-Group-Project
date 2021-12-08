@@ -1,10 +1,8 @@
-import os
 from flask import render_template, url_for, flash, redirect, request, abort
 from fit4all import app, db, bcrypt
-from fit4all.forms import RegistrationForm, LoginForm, PostForm, NoteForm, AccountForm
+from fit4all.forms import RegistrationForm, LoginForm, PostForm, NoteForm
 from fit4all.models import User, Post, Note
 from flask_login import login_user, current_user, logout_user, login_required
-from PIL import Image
 
 @app.route("/")
 def home():
@@ -119,14 +117,6 @@ def account(user_id):
     posts =Post. query.filter_by(user_id=user_id).all()
     posts.reverse()
 
-    form = AccountForm()
-    if form.validate_on_submit():
-        if form.picture.data:
-            picture_file = save_picture(form.picture.data)
-            current_user.image_file = picture_file
-        db.session.commit()
-        flash('Your account has been updated!', 'success')
-        return redirect(url_for('account'))
     userPostsNum = len(posts)
 
     if userPostsNum < 1:
@@ -134,20 +124,6 @@ def account(user_id):
         
     profile_image = url_for('static', filename='profile_images/' + current_user.image_file)
     return render_template('account.html',  user = user, notes = notes, profile_image = profile_image, userPostsnum = userPostsNum, posts = posts)
-
-
-def save_picture(form_picture):
-
-    _, f_ext = os.path.splitext(form_picture.filename)
-    picture_fn = f_ext
-    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
-
-    output_size = (125, 125)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
-    i.save(picture_path)
-
-    return picture_fn
 
 @app.route("/account/<int:user_id>/delete", methods=['GET', 'POST'])
 @login_required

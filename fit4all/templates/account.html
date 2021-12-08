@@ -32,19 +32,20 @@
     <div class="article-metadata">
       {% if user.id == current_user.id %}
       <div>
-        <form method="POST" action="" enctype="multipart/form-data">
-          <fieldset class="form-group">
-            <div class="form-group">
-              {{ form.picture.label() }} {{
-              form.picture(class="form-control-file") }}
-            </div>
-          </fieldset>
-
+        <form>
           <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
+            <label for="exampleFormControlFile1">Example file input</label>
+            <input
+              type="file"
+              class="form-control-file"
+              id="exampleFormControlFile1"
+            />
           </div>
         </form>
 
+        <a class="btn btn-primary btn-sm mt mb-1" href="#"
+          >Update Profile Image</a
+        >
         <a
           class="btn btn-danger btn-sm mt mb-1"
           href="{{ url_for('delete_account', user_id=user.id) }}"
