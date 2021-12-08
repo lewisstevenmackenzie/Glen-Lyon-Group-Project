@@ -1,8 +1,12 @@
 from flask import render_template, url_for, flash, redirect, request, abort
 from fit4all import app, db, bcrypt
-from fit4all.forms import RegistrationForm, LoginForm, PostForm, NoteForm
+from fit4all.forms import AccountForm, RegistrationForm, LoginForm, PostForm, NoteForm
 from fit4all.models import User, Post, Note
 from flask_login import login_user, current_user, logout_user, login_required
+import os
+import secrets
+from PIL import Image
+
 
 @app.route("/")
 def home():
@@ -109,6 +113,19 @@ def delete_post(post_id):
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('home'))
 
+def save_picture(form_picture):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)
+
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+    i.save(picture_path)
+
+    return picture_fn
+
 @app.route("/account/<int:user_id>")
 @login_required
 def account(user_id):
@@ -122,6 +139,16 @@ def account(user_id):
     if userPostsNum < 1:
         userPostsNum = 0
         
+    form = AccountForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            picture_file = save_picture(form.picture.data)
+            current_user.image_file = picture_file
+        db.session.commit()
+        flash('Your profile pic has been updated.')
+        return redirect(url_for('account'))
+
+
     profile_image = url_for('static', filename='profile_images/' + current_user.image_file)
     return render_template('account.html',  user = user, notes = notes, profile_image = profile_image, userPostsnum = userPostsNum, posts = posts)
 
