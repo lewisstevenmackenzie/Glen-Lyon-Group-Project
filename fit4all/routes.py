@@ -222,4 +222,4 @@ def upload_file():
 
             return render_template("home.html")
 
-    return render_template("update_profile_pic.html")
+    return render_template("home.html")
