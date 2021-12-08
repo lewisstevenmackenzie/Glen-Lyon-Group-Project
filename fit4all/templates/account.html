@@ -32,14 +32,13 @@
     <div class="article-metadata">
       {% if user.id == current_user.id %}
       <div>
-        <form>
-          <div class="form-group">
-            <input
-              type="file"
-              class="form-control-file"
-              id="exampleFormControlFile1"
-            />
-          </div>
+        <form
+          method="POST"
+          action="{{ url_for('upload_profile_pic', filename = file) }}"
+          enctype="multipart/form-data"
+        >
+          <input type="file" name="file" />
+          <input type="submit" />
         </form>
 
         <a class="btn btn-primary btn-sm mt mb-1" href="#"

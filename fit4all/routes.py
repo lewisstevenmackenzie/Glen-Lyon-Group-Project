@@ -1,8 +1,10 @@
-from flask import render_template, url_for, flash, redirect, request, abort
+import os
+from flask import render_template, url_for, flash, redirect, request, abort, send_from_directory
 from fit4all import app, db, bcrypt
-from fit4all.forms import RegistrationForm, LoginForm, PostForm, NoteForm
+from fit4all.forms import AccountForm, RegistrationForm, LoginForm, PostForm, NoteForm, UpdateUserProfilePicForm
 from fit4all.models import User, Post, Note
 from flask_login import login_user, current_user, logout_user, login_required
+from werkzeug.utils import secure_filename
 
 @app.route("/")
 def home():
@@ -123,7 +125,17 @@ def account(user_id):
         userPostsNum = 0
         
     profile_image = url_for('static', filename='profile_images/' + current_user.image_file)
-    return render_template('account.html',  user = user, notes = notes, profile_image = profile_image, userPostsnum = userPostsNum, posts = posts)
+    return render_template('account.html', user = user, notes = notes, profile_image = profile_image, userPostsnum = userPostsNum, posts = posts)
+
+
+@app.route('/uploads/<filename>')
+@login_required
+def upload_profile_pic(filename):
+    if request.method=='POST':
+        file = request.files["file"]
+        file.save(os.path.join("static/profile_images", file.filename))
+        return render_template('account.html')
+    return render_template('account.html')
 
 @app.route("/account/<int:user_id>/delete", methods=['GET', 'POST'])
 @login_required
@@ -198,3 +210,4 @@ def explore_users():
         return render_template('explore_users.html', users = users, notes = notes)
     
     return register()
+
