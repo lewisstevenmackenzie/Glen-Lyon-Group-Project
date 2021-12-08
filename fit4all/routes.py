@@ -1,10 +1,9 @@
 import os
 from flask import render_template, url_for, flash, redirect, request, abort, send_from_directory
 from fit4all import app, db, bcrypt
-from fit4all.forms import AccountForm, RegistrationForm, LoginForm, PostForm, NoteForm, UpdateUserProfilePicForm
+from fit4all.forms import AccountForm, RegistrationForm, LoginForm, PostForm, NoteForm
 from fit4all.models import User, Post, Note
 from flask_login import login_user, current_user, logout_user, login_required
-from werkzeug.utils import secure_filename
 from PIL import Image
 
 @app.route("/")
