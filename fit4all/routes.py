@@ -202,7 +202,7 @@ def explore_users():
     
     return register()
 
-@app.route("upload_file",methods=["GET", "POST"])
+@app.route("/upload_file",methods=["GET", "POST"])
 def upload_file():
     if request.method=='POST':
         f=request.files['file_name']
