@@ -1,3 +1,4 @@
+import os
 from flask import render_template, url_for, flash, redirect, request, abort
 from fit4all import app, db, bcrypt
 from fit4all.forms import RegistrationForm, LoginForm, PostForm, NoteForm
@@ -200,3 +201,14 @@ def explore_users():
         return render_template('explore_users.html', users = users, notes = notes)
     
     return register()
+
+@app.route("upload_file",methods=["GET", "POST"])
+def upload_file():
+    if request.method=='POST':
+        f=request.files['file_name']
+        f.save(os.path.join(app.config['UPLOAD_PATH'],f.filename))
+
+        current_user.image_file = f.filename
+        db.session.commit()
+        return render_template("home.html")
+    return render_template("upload_profile_pic.html")

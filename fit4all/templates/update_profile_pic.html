@@ -1,0 +1,22 @@
+{% extends "layout.html" %} {% block content %}
+<h1 class="display-1">Upload Profile Picture</h1>
+<article class="media content-section">
+  <div class="media-body">
+    <form>
+      <div class="form-group">
+        <label for="exampleFormControlFile1">Example file input</label>
+        <input
+          type="file"
+          class="form-control-file"
+          id="exampleFormControlFile1"
+        />
+      </div>
+    </form>
+
+    <form action="/upload_file" methods="POST" enctype="multipart/form-data">
+      <input type="file" name="file_name" />
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+</article>
+{% endblock content %}
