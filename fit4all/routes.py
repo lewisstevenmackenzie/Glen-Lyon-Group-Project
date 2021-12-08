@@ -1,10 +1,11 @@
 import os
+from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, abort
 from fit4all import app, db, bcrypt
 from fit4all.forms import RegistrationForm, LoginForm, PostForm, NoteForm, AccountForm
 from fit4all.models import User, Post, Note
 from flask_login import login_user, current_user, logout_user, login_required
-from PIL import Image
+
 
 @app.route("/")
 def home():
