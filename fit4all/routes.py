@@ -216,6 +216,8 @@ def upload_file():
             image = request.files["image"]
 
             image.save(os.path.join(app.config["IMAGE_UPLOADS"], image.filename))
+            current_user.image_file=image.filename
+            db.session.commit()
 
             print("Image saved")
 
