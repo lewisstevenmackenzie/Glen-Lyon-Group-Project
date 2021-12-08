@@ -219,6 +219,6 @@ def upload_file():
 
             print("Image saved")
 
-            return redirect(request.url)
+            return render_template("home.html")
 
     return render_template("update_profile_pic.html")
