@@ -207,7 +207,6 @@ def upload_file():
     if request.method=='POST':
         f=request.files['file_name']
         f.save(os.path.join(app.config['UPLOAD_PATH'],f.filename))
-
         current_user.image_file = f.filename
         db.session.commit()
         return render_template("home.html")
