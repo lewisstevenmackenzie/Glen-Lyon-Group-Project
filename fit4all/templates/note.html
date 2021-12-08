@@ -3,6 +3,9 @@
   <div class="media-body">
     <div class="article-metadata">
       <a class="mr-2" href="#">{{ note.id }}</a>
+      <div>
+        <p class="article-content">{{ note.content }}</p>
+      </div>
       {% if note.note_user_id == current_user.id %}
       <div>
         <a
@@ -18,7 +21,6 @@
       </div>
       {% endif %}
     </div>
-    <p class="article-content">{{ note.content }}</p>
   </div>
 </article>
 {% endblock content %}
