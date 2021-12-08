@@ -31,22 +31,15 @@
   <div class="media-body">
     <div class="article-metadata">
       {% if user.id == current_user.id %}
-
-      <form method="POST" action="" enctype="multipart/form-data">
-        <fieldset class="form-group">
-          <div class="form-group">
-            {{ form.picture.label() }}
-            {{ form.picture(class="form-control-file") }}
-          </div>
-        </fieldset>
-        <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
-        </div>
-      </form>
-
-
-
-
+      <div>
+        <form
+          method="POST"
+          action="{{ url_for('upload_profile_pic', filename = file) }}"
+          enctype="multipart/form-data"
+        >
+          <input type="file" name="file" />
+          <input type="submit" />
+        </form>
 
         <a class="btn btn-primary btn-sm mt mb-1" href="#"
           >Update Profile Image</a
@@ -56,7 +49,7 @@
           href="{{ url_for('delete_account', user_id=user.id) }}"
           >Delete Account</a
         >
-z      </div>
+      </div>
 
       {% else %}
       <div>
