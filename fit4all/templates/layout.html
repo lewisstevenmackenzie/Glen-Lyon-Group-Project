@@ -90,7 +90,7 @@
              <article class="media content-section">
               <div class="media-body">
                 <div class="article-metadata">
-                <p class="mr-2" href="{{ url_for('note', note_id=note.id) }}">{{ note.content }}</p>
+                <a class="mr-2" href="{{ url_for('note', note_id=note.id) }}">{{ note.content }}</a>
               </article>
             {% endfor %}
           {% if current_user.is_authenticated %}
