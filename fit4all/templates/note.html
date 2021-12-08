@@ -2,9 +2,12 @@
 <article class="media content-section">
   <div class="media-body">
     <div class="article-metadata">
-      <p class="mr-2">Note Number {{ note.id }}</p>
+      <p class="mr-2">Note: {{ note.id }}</p>
       <div>
-        <p class="article-content">Note: {{ note.content }}</p>
+        <p class="article-content">
+          Content:<br />
+          {{ note.content }}
+        </p>
       </div>
       {% if note.note_user_id == current_user.id %}
       <div>
