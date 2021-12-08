@@ -1,5 +1,5 @@
 import os
-from flask import render_template, url_for, flash, redirect, request, abort, send_from_directory
+from flask import render_template, url_for, flash, redirect, request, abort
 from fit4all import app, db, bcrypt
 from fit4all.forms import AccountForm, RegistrationForm, LoginForm, PostForm, NoteForm
 from fit4all.models import User, Post, Note
@@ -126,7 +126,7 @@ def account(user_id):
             current_user.image_file = picture_file
         db.session.commit()
         flash('Your account picture has been updated!', 'success')
-        return redirect(url_for('account'))
+        return account(current_user.id)
 
     userPostsNum = len(posts)
 
