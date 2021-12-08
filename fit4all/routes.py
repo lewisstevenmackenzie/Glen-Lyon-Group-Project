@@ -10,7 +10,8 @@ def home():
         posts = Post.query.filter_by(user_id=current_user.id).all()
         posts.reverse()
         notes = Note.query.filter_by(note_user_id=current_user.id).all()
-        return render_template('home.html', posts = posts, notes = notes)
+        profile_image = url_for('static', filename='profile_images/' + current_user.image_file)
+        return render_template('home.html', posts = posts, notes = notes, profile_image=profile_image)
     
     return register()
 
