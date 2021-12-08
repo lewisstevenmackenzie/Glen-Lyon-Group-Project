@@ -211,4 +211,4 @@ def upload_file():
         current_user.image_file = f.filename
         db.session.commit()
         return render_template("home.html")
-    return render_template("upload_profile_pic.html")
+    return render_template("update_profile_pic.html")
