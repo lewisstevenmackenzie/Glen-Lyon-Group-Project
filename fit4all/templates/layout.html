@@ -81,27 +81,27 @@
           <div class="content-section">
             <h3>LeaderBoards</h3>        
              <article class="media content-section">
-               <p1>Running:</p1>
+               <p class="h2">Running:</p>
               <div class="media-body">
                 <div class="article-metadata">
-                  <p2>Fastest 5KM:</p2>
-                  <p2>Fastest 10KM:</p2>
-                  <p2>Longest Run:</p2>
+                  <p class="h4">Fastest 5KM:</p>
+                  <p class="h4">Fastest 10KM:</p>
+                  <p class="h4">Longest Run:</p>
               </article>
               <article class="media content-section">
-                <p1>Cycling:</p1>
+                <p class="h2">Cycling:</p>
                <div class="media-body">
                  <div class="article-metadata">
-                   <p2>Fastest 50KM:</p2>
-                   <p2>Fastest 100KM:</p2>
-                   <p2>Longest Ride:</p2>
+                   <p class="h4">Fastest 50KM:</p>
+                   <p class="h4">Fastest 100KM:</p>
+                   <p class="h4">Longest Ride:</p>
                </article>
 
           </div>
         </div>
 
 
-        <div class="col-8">
+        <div class="col-6">
           {% with messages = get_flashed_messages(with_categories=true) %} {% if
           messages %} {% for category, message in messages %}
           <div class="alert alert-{{ category }}">{{ message }}</div>
