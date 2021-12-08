@@ -1,0 +1,15 @@
+[ unit ]
+Description = uWSGI Service
+After = syslog.target
+
+[ Service ]
+ExecStart =/home/40445231/.local/bin/uwsgi --emperor /home/40445231/SET09103Coursework/vassals/deploy.ini
+RuntimDirectory = uwsgi
+Restart = always
+killSignal = SIGQUIT
+Type = notify
+StandardError = syslog
+NotifyAccess =all
+
+[ Install ]
+WantedBy = multi - user . target
