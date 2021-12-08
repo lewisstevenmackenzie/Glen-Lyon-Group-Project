@@ -202,12 +202,23 @@ def explore_users():
     
     return register()
 
-@app.route("/upload_file",methods=["GET", "POST"])
+
+
+
+
+@app.route("/upload_file", methods=["GET", "POST"])
 def upload_file():
-    if request.method=='POST':
-        f=request.files['file_name']
-        f.save(os.path.join(app.config['UPLOAD_PATH'],f.filename))
-        current_user.image_file = url_for('static/profile_images/', f.filename)
-        db.session.commit()
-        return render_template("home.html")
+
+    if request.method == "POST":
+
+        if request.files:
+
+            image = request.files["image"]
+
+            image.save(os.path.join(app.config["IMAGE_UPLOADS"], image.filename))
+
+            print("Image saved")
+
+            return redirect(request.url)
+
     return render_template("update_profile_pic.html")
