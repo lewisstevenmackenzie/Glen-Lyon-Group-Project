@@ -196,6 +196,7 @@ def explore_users():
         users = User.query.all()
         users.reverse()
         notes = Note.query.filter_by(note_user_id=current_user.id).all()
+
         return render_template('explore_users.html', users = users, notes = notes)
     
     return register()
