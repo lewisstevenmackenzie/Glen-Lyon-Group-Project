@@ -207,7 +207,7 @@ def upload_file():
     if request.method=='POST':
         f=request.files['file_name']
         f.save(os.path.join(app.config['UPLOAD_PATH'],f.filename))
-        current_user.image_file = f.filename
+        current_user.image_file = url_for('static/profile_images/', f.filename)
         db.session.commit()
         return render_template("home.html")
     return render_template("update_profile_pic.html")
