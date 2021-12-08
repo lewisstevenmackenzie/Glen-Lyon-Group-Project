@@ -32,7 +32,9 @@
     <div class="article-metadata">
       {% if user.id == current_user.id %}
       <div>
-        <a class="btn btn-primary btn-sm mt mb-1" href="#"
+        <a
+          class="btn btn-primary btn-sm mt mb-1"
+          href="{{ url_for('upload_file') }}"
           >Update Profile Image</a
         >
         <a
