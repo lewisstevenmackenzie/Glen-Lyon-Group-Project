@@ -1,6 +1,7 @@
 {% extends "layout.html" %} {% block content%} {% for post in posts%}
 <article class="media content-section">
   <div class="media-body">
+    <img class="rounded-circle account-img" src="{{ profile_image }}" />
     <div class="article-metadata">
       <a class="mr-2" href="{{ url_for('account', user_id=post.user_id) }}"
         >{{ post.athlete.username }}</a
