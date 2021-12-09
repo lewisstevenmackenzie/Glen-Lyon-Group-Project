@@ -126,7 +126,7 @@ def account(user_id):
     if userPostsNum < 1:
         userPostsNum = 0
         
-    profile_image = url_for('static', filename='profile_images/' + user_id.image_file)
+    profile_image = url_for('static', filename='profile_images/' + user.image_file)
     return render_template('account.html',  user = user, notes = notes, profile_image = profile_image, userPostsnum = userPostsNum, posts = posts)
 
 @app.route("/account/<int:user_id>/delete", methods=['GET', 'POST'])
