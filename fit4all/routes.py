@@ -142,8 +142,11 @@ def delete_account(user_id):
     if user.id != current_user.id:
         abort(403)
     posts = Post.query.filter_by(user_id=current_user.id).all()
+    notes= Note.query.filter_by(user_id=current_user.id).all()
     for post in posts:
         db.session.delete(post)
+    for note in notes:
+        db.session.delete(note)
     db.session.delete(user)
     db.session.commit()
     flash('Your account has been deleted!', 'success')
