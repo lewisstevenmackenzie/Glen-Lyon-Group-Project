@@ -68,7 +68,7 @@ def new_post():
     form = PostForm()
     if form.validate_on_submit():
 
-        post = Post(title = form.title.data,activity_type = form.activity_type.data, distance=form.distance, content = form.content.data, athlete = current_user)
+        post = Post(title = form.title.data, activity_type = form.activity_type.data, distance=form.distance.data, content = form.content.data, athlete = current_user)
         
         db.session.add(post)
         db.session.commit()
