@@ -9,6 +9,8 @@
       >
     </div>
     <h2 class="article-title">Activity: {{ post.title }}</h2>
+    <h2 class="article-content">Discipline: {{ post.activity_type }}</h2>
+    <h2 class="article-content">Distance: {{ post.distance }}</h2>
     <p class="article-content">Description: {{ post.content }}</p>
   </div>
   {% if post.athlete == current_user %}
