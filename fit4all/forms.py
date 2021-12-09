@@ -29,6 +29,8 @@ class LoginForm(FlaskForm):
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     content = TextAreaField('Content', validators=[DataRequired()])
+    activity_type = TextAreaField('Content', validators=[DataRequired()])
+    distance = TextAreaField('Content', validators=[DataRequired()])
     submit = SubmitField('Post')
 
 class AccountForm(FlaskForm):
