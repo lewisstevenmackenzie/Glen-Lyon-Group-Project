@@ -1,7 +1,7 @@
 import os
 from flask import render_template, url_for, flash, redirect, request, abort
 from fit4all import app, db, bcrypt
-from fit4all.forms import RegistrationForm, LoginForm, PostForm, NoteForm
+from fit4all.forms import SignUpForm, LoginForm, PostForm, NoteForm
 from fit4all.models import User, Post, Note
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -31,7 +31,7 @@ def error404():
 def sign_up():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
-    form = RegistrationForm()
+    form = SignUpForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = User(username=form.username.data, email=form.email.data, password=hashed_password)

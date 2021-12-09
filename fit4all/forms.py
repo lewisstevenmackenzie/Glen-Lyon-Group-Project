@@ -4,26 +4,19 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from fit4all.models import User
 
-class RegistrationForm(FlaskForm):
+class SignUpForm(FlaskForm):
     username = StringField('username', validators=[DataRequired(), Length(min=3, max = 10)])
-
     email = StringField('email', validators=[DataRequired(), Email()])
-    
     password = PasswordField('password', validators=[DataRequired()])
-    
     confirm_password = PasswordField('confirm password', validators=[DataRequired(), EqualTo('password')])
-
     submit = SubmitField('Sign Up')
 
 
 class LoginForm(FlaskForm):
     
     email = StringField('email', validators=[DataRequired(), Email()])
-
     password = PasswordField('password', validators=[DataRequired()])
-
     remember = BooleanField('Remember Me') 
-
     submit = SubmitField('Login')
 
 class PostForm(FlaskForm):
