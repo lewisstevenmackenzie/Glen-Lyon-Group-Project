@@ -11,7 +11,8 @@
     <h2 class="article-title">Activity: {{ post.title }}</h2>
     <h4 class="article-content">Discipline: {{ post.activity_type }}</h4>
     <h4 class="article-content">Distance: {{ post.distance }}</h4>
-    <p class="article-content">Description: {{ post.content }}</p>
+    <p class="article-content">Description:</p>
+    <p class="article-content">{{ post.content }}</p>
   </div>
   {% if post.athlete == current_user %}
   <div>
