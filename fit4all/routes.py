@@ -27,7 +27,7 @@ def about():
 def error404():
     return render_template('error404.html', title = 'error404')
 
-@app.route("/sign_up", methods=['GET', 'POST'])
+@app.route("/signup", methods=['GET', 'POST'])
 def sign_up():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
