@@ -1,6 +1,7 @@
 {% extends "layout.html" %} {% block content%}
 <article class="media content-section">
   <div class="media-body">
+    <img class="rounded-circle account-img" src="{{ profile_image }}" />
     <div class="article-metadata">
       <a class="mr-2" href="#">User: {{ post.athlete.username }}</a>
       <small class="text-muted"

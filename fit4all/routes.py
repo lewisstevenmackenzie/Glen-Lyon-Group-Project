@@ -81,7 +81,9 @@ def new_post():
 def post(post_id):
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
     post = Post.query.get_or_404(post_id)
-    return render_template('post.html', title = post.title, post = post, notes = notes)
+    user = User.query.get_or_404(post.user_id)
+    profile_image = url_for('static', filename='profile_images/' + user.image_file)
+    return render_template('post.html', title = post.title, post = post, notes = notes, profile_image=profile_image)
 
 @app.route("/post/<int:post_id>/edit", methods=['GET', 'POST'])
 @login_required
