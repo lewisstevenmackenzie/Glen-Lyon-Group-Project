@@ -3,14 +3,14 @@
   <div class="media-body">
     <img class="rounded-circle account-img" src="{{ profile_image }}" />
     <div class="article-metadata">
-      <a class="mr-2" href="#">User: {{ post.athlete.username }}</a>
+      <p class="font-weight-bold">User: {{ post.athlete.username }}</p>
       <small class="text-muted"
         >Date: {{ post.date.strftime('%Y-%m-%d') }}</small
       >
     </div>
     <h2 class="article-title">Activity: {{ post.title }}</h2>
-    <h2 class="article-content">Discipline: {{ post.activity_type }}</h2>
-    <h2 class="article-content">Distance: {{ post.distance }}</h2>
+    <h4 class="article-content">Discipline: {{ post.activity_type }}</h4>
+    <h4 class="article-content">Distance: {{ post.distance }}</h4>
     <p class="article-content">Description: {{ post.content }}</p>
   </div>
   {% if post.athlete == current_user %}
