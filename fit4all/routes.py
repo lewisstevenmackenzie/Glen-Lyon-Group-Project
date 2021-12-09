@@ -14,7 +14,7 @@ def home():
         profile_image = url_for('static', filename='profile_images/' + current_user.image_file)
         return render_template('home.html', posts = posts, notes = notes, profile_image=profile_image)
     
-    return register()
+    return sign_up()
 
 @app.route("/about")
 def about():
@@ -27,8 +27,8 @@ def about():
 def error404():
     return render_template('error404.html', title = 'error404')
 
-@app.route("/register", methods=['GET', 'POST'])
-def register():
+@app.route("/sign_up", methods=['GET', 'POST'])
+def sign_up():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = RegistrationForm()
@@ -39,7 +39,7 @@ def register():
         db.session.commit()
         flash('Your account has been created! You are now able to log in', 'success')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('sign_up.html', title='sign_up', form=form)
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -202,7 +202,7 @@ def explore_users():
 
         return render_template('explore_users.html', users = users, notes = notes)
     
-    return register()
+    return sign_up()
 
 
 @app.route("/upload_file", methods=["GET", "POST"])
