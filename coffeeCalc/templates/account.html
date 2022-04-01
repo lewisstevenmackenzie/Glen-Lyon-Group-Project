@@ -1,0 +1,55 @@
+{% extends "layout.html" %} {% block content %}
+<div class="content-section">
+  <div class="media">
+    <img class="rounded-circle account-img" src="{{ profile_image }}" />
+    <div class="media-body">
+      <h2 class="account-heading">{{ user.username }}</h2>
+      <p class="text-secondary">{{ user.email }}</p>
+      <p class="text-secondary">Number of Calculations: {{ userPostsnum }}</p>
+    </div>
+  </div>
+</div>
+
+{% if userPostsnum > 0 %}
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <p class="font-weight-bold">User: {{ posts[0].client.username }}</p>
+      <small class="text-muted"
+        >Date: {{ posts[0].date.strftime('%Y-%m-%d') }}</small
+      >
+    </div>
+    <h2>
+      <p class="article-title">Activity: {{ posts[0].title }}</p>
+    </h2>
+    <p class="article-content">Description: {{ posts[0].content }}</p>
+  </div>
+</article>
+{% endif %}
+
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      {% if user.id == current_user.id %}
+      <div>
+        <a
+          class="btn btn-primary btn-sm mt mb-1"
+          href="{{ url_for('upload_file') }}"
+          >Update Profile Image</a
+        >
+        <a
+          class="btn btn-danger btn-sm mt mb-1"
+          href="{{ url_for('delete_account', user_id=user.id) }}"
+          >Delete Account</a
+        >
+      </div>
+
+      {% else %}
+      <div>
+        <a class="btn btn-primary btn-sm mt mb-1" href="#">Follow User</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</article>
+{% endblock content %}

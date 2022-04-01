@@ -1,4 +1,7 @@
-from fit4all import app
+from flask import Flask
+
+from coffeeCalc import app
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(app.config['ip_address'],
+            port = int(app.config['port']))

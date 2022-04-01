@@ -1,0 +1,67 @@
+{% extends "layout.html" %} {% block content %}
+<div class="content-section">
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">{{ legend }}</legend>
+      <div class="form-group">
+        {{ form.title.label(class="form-control-label") }} {% if
+        form.title.errors %} {{ form.title(class="form-control form-control-lg
+        is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.title.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.title(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+
+      <div class="form-group">
+        {{ form.start_region.label(class="form-control-label") }} {% if
+        form.start_region.errors %} {{ form.start_region(class="form-control form-control-lg
+        is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.start_region.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.start_region(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+
+      <div class="form-group">
+        {{ form.end_location.label(class="form-control-label") }} {% if
+        form.end_location.errors %} {{ form.end_location(class="form-control form-control-lg
+        is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.end_location.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.end_location(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+
+      
+      <div class="form-group">
+        {{ form.distance_travelled.label(class="form-control-label") }} {% if
+        form.distance_travelled.errors %} {{ form.distance_travelled(class="form-control form-control-lg
+        is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.distance_travelled.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.distance_travelled(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+
+
+    </fieldset>
+    <div class="form-group">
+      {{ form.submit(class="btn btn-outline-info") }}
+    </div>
+  </form>
+</div>
+{% endblock content %}
