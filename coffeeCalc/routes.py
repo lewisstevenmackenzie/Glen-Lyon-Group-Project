@@ -6,7 +6,7 @@ from coffeeCalc.models import User, Post, Note
 from flask_login import login_user, current_user, logout_user, login_required
 from functools import wraps
 
-from calculator import co2_cost
+from coffeeCalc.calculator import *
 
 # login decorator
 def requires_login(f):
@@ -87,9 +87,9 @@ def new_post():
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
     form = PostForm()
     if form.validate_on_submit():
-
-        post = Post(title = form.title.data, start_country = form.start_country.data, origin_to_port_distance = form.origin_to_port_distance.data,end_location = form.end_location.data, port_to_client_distance=form.port_to_client_distance.data, weight = weight.data, carbon_cost = co2_cost(form.weight.data, form.origin_to_port.data, form.start_country.data, form.port_to_client.data), client = current_user)
-        
+        print("test1")
+        post = Post(title = form.title.data, start_country = form.start_country.data, origin_to_port_distance = form.origin_to_port_distance.data,end_location = form.end_location.data, port_to_client_distance=form.port_to_client_distance.data, weight = form.weight.data, carbon_cost = co2_cost(form.weight.data, form.origin_to_port_distance.data, form.start_country.data, form.port_to_client_distance.data), client = current_user)
+        print("test2")
         db.session.add(post)
         db.session.commit()
         flash('Post created', 'success')
@@ -142,7 +142,7 @@ def delete_post(post_id):
 def account(user_id):
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
     user = User.query.get_or_404(user_id)
-    posts =Post. query.filter_by(user_id=user_id).all()
+    posts =Post.query.filter_by(user_id=user_id).all()
     posts.reverse()
 
     userPostsNum = len(posts)

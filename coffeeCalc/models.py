@@ -21,7 +21,7 @@ class User(db.Model, UserMixin):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    start_country = db.Column(db.String(100), nullable=False, foreign_key = True)
+    start_country = db.Column(db.String(100), nullable=False)
     origin_to_port_distance = db.Column(db.String(100), nullable=False)
     end_location = db.Column(db.String(100), nullable=False)
     port_to_client_distance = db.Column(db.String(100), nullable=False)
