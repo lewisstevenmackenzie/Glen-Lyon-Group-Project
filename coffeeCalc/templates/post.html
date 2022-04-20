@@ -9,9 +9,9 @@
       >
     </div>
     <h2 class="article-title">Trip: {{ post.title }}</h2>
-    <h4 class="article-content">Start Region: {{ post.start_region }}</h4>
+    <h4 class="article-content">Start Country: {{ post.start_country }}</h4>
     <h4 class="article-content">End Location: {{ post.end_location }}</h4>
-    <h4 class="article-content">Distance: {{ post.distance }}</h4>
+    <h4 class="article-content">CO2 Cost: {{ post.carbon_cost }}</h4>
 
   </div>
   {% if post.client == current_user %}

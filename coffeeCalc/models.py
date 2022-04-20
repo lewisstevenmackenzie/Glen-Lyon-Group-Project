@@ -51,3 +51,4 @@ class Country(db.Model):
 
     def __repr__(self):
         return f"Country('{self.title}')"
+    

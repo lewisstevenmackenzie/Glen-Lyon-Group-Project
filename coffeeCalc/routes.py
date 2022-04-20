@@ -1,8 +1,8 @@
 import os
 from flask import render_template, url_for, flash, redirect, request, abort
 from coffeeCalc import app, db, bcrypt
-from coffeeCalc.forms import SignUpForm, LoginForm, PostForm, NoteForm
-from coffeeCalc.models import User, Post, Note
+from coffeeCalc.forms import SignUpForm, LoginForm, PostForm, NoteForm, QuickCalcForm
+from coffeeCalc.models import User, Post, Note, Country
 from flask_login import login_user, current_user, logout_user, login_required
 from functools import wraps
 
@@ -38,10 +38,6 @@ def about():
         notes = Note.query.filter_by(note_user_id=current_user.id).all()
         return render_template('about.html', title = 'about', notes = notes)
     return render_template('about.html', title = 'about')
-
-@app.route("/calculation")
-def calculation():
-    return render_template('calculation.html', title = 'calculation')
 
 @app.route("/error404")
 def error404():
@@ -81,6 +77,15 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
+@app.route("/calculation", methods=['GET', 'POST'])
+def calculation():
+    form = QuickCalcForm()
+    if form.validate_on_submit():
+        carbon_cost = co2_cost(form.weight.data, form.origin_to_port_distance.data, form.start_country.data, form.port_to_client_distance.data)
+        print("This is the carbon cost: " + str(carbon_cost))
+        return render_template('calculation.html', title = 'calculation', form = form, co2 = carbon_cost)    
+    return render_template('calculation.html', title = 'calculation', form = form,  co2 = "0")
+
 @app.route("/post/new", methods=['GET', 'POST'])
 @login_required
 def new_post():
@@ -88,7 +93,7 @@ def new_post():
     form = PostForm()
     if form.validate_on_submit():
         print("test1")
-        post = Post(title = form.title.data, start_country = form.start_country.data, origin_to_port_distance = form.origin_to_port_distance.data,end_location = form.end_location.data, port_to_client_distance=form.port_to_client_distance.data, weight = form.weight.data, carbon_cost = co2_cost(form.weight.data, form.origin_to_port_distance.data, form.start_country.data, form.port_to_client_distance.data), client = current_user)
+        post = Post(title = form.title.data, start_country = form.start_country.data, origin_to_port_distance = str(form.origin_to_port_distance.data),end_location = form.end_location.data, port_to_client_distance=str(form.port_to_client_distance.data), weight = str(form.weight.data), carbon_cost = co2_cost(form.weight.data, form.origin_to_port_distance.data, form.start_country.data, form.port_to_client_distance.data), client = current_user)
         print("test2")
         db.session.add(post)
         db.session.commit()
@@ -116,14 +121,23 @@ def edit_post(post_id):
     if form.validate_on_submit():
         post.title = form.title.data
         post.start_country = form.start_country.data
+        post.origin_to_port_distance = str(form.origin_to_port_distance.data) 
         post.end_location = form.end_location.data
+        post.port_to_client_distance = str(form.port_to_client_distance.data)
+        post.weight = str(form.weight.data)
+        post.carbon_cost = co2_cost(form.weight.data, form.origin_to_port_distance.data, form.start_country.data, form.port_to_client_distance.data)
+
         db.session.commit()
         flash('Your post has been updated!', 'success')
         return redirect(url_for('post', post_id=post.id))
     elif request.method == 'GET':
         form.title.data = post.title
         form.start_country.data = post.start_country
+        form.origin_to_port_distance.data = float(post.origin_to_port_distance)
         form.end_location.data = post.end_location
+        form.port_to_client_distance.data = float(post.port_to_client_distance)
+        form.weight.data = float(post.weight)
+
     return render_template('create_post.html', title='edit Post', form=form, legend='edit Post', notes = notes)
 
 @app.route("/post/<int:post_id>/delete", methods=['GET', 'POST'])

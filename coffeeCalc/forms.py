@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, DecimalField, SelectField
+from flask_login import current_user
+from wtforms.validators import DataRequired, Length, Email, EqualTo, NumberRange
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from coffeeCalc.models import User
 
@@ -20,12 +21,19 @@ class LoginForm(FlaskForm):
 
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    start_country = TextAreaField('Origin Country', validators=[DataRequired()])
-    origin_to_port_distance = TextAreaField('Distance to port', validators=[DataRequired()])
+    start_country = SelectField("Origin Country", choices=[("Mexico"),("Mariel"), ("Jamaica"), ("Hawaii")])    
+    origin_to_port_distance = DecimalField('Distance to port (km)', validators=[DataRequired(), NumberRange(min=0)])
     end_location = TextAreaField('End Location', validators=[DataRequired()])
-    port_to_client_distance = TextAreaField('Distance to client', validators=[DataRequired()])
-    weight = TextAreaField('Weight', validators=[DataRequired()])
+    port_to_client_distance = DecimalField('Tillbiry Docks to client (km)', validators=[DataRequired(), NumberRange(min=0)])
+    weight = DecimalField('Weight (kg)', validators=[DataRequired(), NumberRange(min=0)])
     submit = SubmitField('Post')
+
+class QuickCalcForm(FlaskForm):
+    start_country = SelectField("Origin Country", choices=[("Mexico"),("Mariel"), ("Jamaica"), ("Hawaii")])
+    origin_to_port_distance = DecimalField('Distance to port (km)', validators=[DataRequired(), NumberRange(min=0)])
+    port_to_client_distance = DecimalField('Tillbury Docks to client (km)', validators=[DataRequired(), NumberRange(min=0)])
+    weight = DecimalField('Weight (kg)', validators=[DataRequired(), NumberRange(min=0)])
+    submit = SubmitField('Submit')
 
 class AccountForm(FlaskForm):
     username = StringField('UserName', validators=[DataRequired()])

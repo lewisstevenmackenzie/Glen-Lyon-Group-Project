@@ -24,6 +24,6 @@ def co2_cost(weight, origin_to_port, start_country, port_to_client):
     #print("test5" +str(origin_co2))
     shipping_co2 = origin_country[0].port_to_UK_cost 
     #print("test6" + str(shipping_co2))
-    total_co2 = ((int(weight)*int(origin_co2)*int(origin_to_port)) + (int(weight)*int(shipping_co2)) + (int(weight)*int(port_to_client)*1))
+    total_co2 = ((float(weight)*float(origin_co2)*float(origin_to_port)) + (float(weight)*float(shipping_co2)) + (float(weight)*float(port_to_client)*1))
     print("test7" + str(total_co2))
     return total_co2
