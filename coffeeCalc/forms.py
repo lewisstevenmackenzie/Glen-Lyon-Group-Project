@@ -21,15 +21,17 @@ class LoginForm(FlaskForm):
 
 class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    start_country = SelectField("Origin Country", choices=[("Mexico"),("Mariel"), ("Jamaica"), ("Hawaii")])    
+    start_country = SelectField("Origin Country")    
     origin_to_port_distance = DecimalField('Distance to port (km)', validators=[DataRequired(), NumberRange(min=0)])
     end_location = TextAreaField('End Location', validators=[DataRequired()])
     port_to_client_distance = DecimalField('Tillbiry Docks to client (km)', validators=[DataRequired(), NumberRange(min=0)])
     weight = DecimalField('Weight (kg)', validators=[DataRequired(), NumberRange(min=0)])
     submit = SubmitField('Post')
 
+# choices=[("Mexico"),("Mariel"), ("Jamaica"), ("Hawaii"), ("Guatemala")])
+
 class QuickCalcForm(FlaskForm):
-    start_country = SelectField("Origin Country", choices=[("Mexico"),("Mariel"), ("Jamaica"), ("Hawaii")])
+    start_country = SelectField("Origin Country")
     origin_to_port_distance = DecimalField('Distance to port (km)', validators=[DataRequired(), NumberRange(min=0)])
     port_to_client_distance = DecimalField('Tillbury Docks to client (km)', validators=[DataRequired(), NumberRange(min=0)])
     weight = DecimalField('Weight (kg)', validators=[DataRequired(), NumberRange(min=0)])

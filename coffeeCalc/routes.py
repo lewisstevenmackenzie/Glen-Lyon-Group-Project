@@ -80,6 +80,7 @@ def logout():
 @app.route("/calculation", methods=['GET', 'POST'])
 def calculation():
     form = QuickCalcForm()
+    form.start_country.choices = [(country.title) for country in Country.query.all()]
     if form.validate_on_submit():
         carbon_cost = co2_cost(form.weight.data, form.origin_to_port_distance.data, form.start_country.data, form.port_to_client_distance.data)
         print("This is the carbon cost: " + str(carbon_cost))
@@ -91,6 +92,7 @@ def calculation():
 def new_post():
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
     form = PostForm()
+    form.start_country.choices = [(country.title) for country in Country.query.all()]
     if form.validate_on_submit():
         print("test1")
         post = Post(title = form.title.data, start_country = form.start_country.data, origin_to_port_distance = str(form.origin_to_port_distance.data),end_location = form.end_location.data, port_to_client_distance=str(form.port_to_client_distance.data), weight = str(form.weight.data), carbon_cost = co2_cost(form.weight.data, form.origin_to_port_distance.data, form.start_country.data, form.port_to_client_distance.data), client = current_user)
@@ -118,6 +120,7 @@ def edit_post(post_id):
     if post.client != current_user:
         abort(403)
     form = PostForm()
+    form.start_country.choices = [(country.title) for country in Country.query.all()]
     if form.validate_on_submit():
         post.title = form.title.data
         post.start_country = form.start_country.data
@@ -156,7 +159,7 @@ def delete_post(post_id):
 def account(user_id):
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
     user = User.query.get_or_404(user_id)
-    posts =Post.query.filter_by(user_id=user_id).all()
+    posts = Post.query.filter_by(user_id=user_id).all()
     posts.reverse()
 
     userPostsNum = len(posts)
