@@ -1,10 +1,12 @@
 import os
 from flask import render_template, url_for, flash, redirect, request, abort
+import sqlalchemy
 from coffeeCalc import app, db, bcrypt
 from coffeeCalc.forms import SignUpForm, LoginForm, PostForm, NoteForm, QuickCalcForm
 from coffeeCalc.models import User, Post, Note, Country
 from flask_login import login_user, current_user, logout_user, login_required
 from functools import wraps
+from sqlalchemy.orm import load_only
 
 from coffeeCalc.calculator import *
 
@@ -80,7 +82,9 @@ def logout():
 @app.route("/calculation", methods=['GET', 'POST'])
 def calculation():
     form = QuickCalcForm()
-    form.start_country.choices = [(country.title) for country in Country.query.all()]
+    form.start_region.choices = [(country.region) for country in Country.query.distinct(Country.region).group_by(Country.region)]
+    form.start_country.choices = [(country.title) for country in Country.query.filter(Country.region == str(form.start_region.data)).all()]
+    print(str(form.start_region.data))
     if form.validate_on_submit():
         carbon_cost = co2_cost(form.weight.data, form.origin_to_port_distance.data, form.start_country.data, form.port_to_client_distance.data)
         print("This is the carbon cost: " + str(carbon_cost))

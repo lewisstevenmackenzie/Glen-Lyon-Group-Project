@@ -31,7 +31,9 @@ class PostForm(FlaskForm):
 # choices=[("Mexico"),("Mariel"), ("Jamaica"), ("Hawaii"), ("Guatemala")])
 
 class QuickCalcForm(FlaskForm):
+    start_region  = SelectField("Origin Region")
     start_country = SelectField("Origin Country")
+    start_port = SelectField("Origin Port")
     origin_to_port_distance = DecimalField('Distance to port (km)', validators=[DataRequired(), NumberRange(min=0)])
     port_to_client_distance = DecimalField('Tillbury Docks to client (km)', validators=[DataRequired(), NumberRange(min=0)])
     weight = DecimalField('Weight (kg)', validators=[DataRequired(), NumberRange(min=0)])
