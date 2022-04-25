@@ -3,17 +3,17 @@
   <div class="media-body">
     <div class="article-metadata">
       <img class="rounded-circle account-img" src="{{ profile_image }}" />
-      <a class="mr-2" href="{{ url_for('account', user_id=post.user_id) }}"
-        >{{ post.client.username }}</a
-      >
-      <small class="text-muted">{{ post.date.strftime('%Y-%m-%d') }}</small>
     </div>
     <h2>
       <a class="article-title" href="{{ url_for('post', post_id=post.id) }}"
         >{{ post.title }}</a
       >
     </h2>
-    <p class="article-content">{{ post.content }}</p>
+    <small class="text-muted">Date: {{ post.date.strftime('%Y-%m-%d') }}</small>
+    <br>
+    <p class="article-content">Start country: {{ post.start_country }}</p>
+    <p class="article-content">Destination: {{ post.end_location }}</p>
+
   </div>
 </article>
 {% endfor %} {% endblock content %}
