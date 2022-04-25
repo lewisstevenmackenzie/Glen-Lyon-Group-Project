@@ -14,3 +14,32 @@ Sponsor: Frances Ryan
 
 Brief: web application that will calculate the carbon emissions produced by transporting coffee beans from different origin farms to roasteries across the UK
 
+Setup Virtual Enviroment:
+- virtualenv TestEnv
+- source TestEnv/bin/activate
+
+Libraries to Install:
+- pip install Flask
+- pip install flask-wtf
+- pip install email_validator
+- pip install flask-sqlalchemy
+- pip install flask-bcrypt
+- pip install flask-login
+
+How to Create the Databse:
+- python3
+- from coffeeCalc.init import db
+- db.create_all()
+
+How to add a Country:
+- python3
+- from coffeeCalc.init import db
+- from coffeeCalc.models import Country
+- country1 = Country(title = "countryName", region = "regionName", port = "portName", region_to_port_cost = "decimal value", port_to_UK_cos = "decimal value")
+- db.session.add(country1)
+- db.session.commit()
+
+How to host the Website:
+- python3 main.py
+
+
