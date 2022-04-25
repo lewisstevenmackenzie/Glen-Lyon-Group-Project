@@ -6,6 +6,7 @@
       <h2 class="account-heading">{{ user.username }}</h2>
       <p class="text-secondary">{{ user.email }}</p>
       <p class="text-secondary">Number of Calculations: {{ userPostsnum }}</p>
+      <p class="text-secondary">Total Carbon Output: {{ totalCarbon }}</p>
     </div>
   </div>
 </div>
@@ -22,7 +23,6 @@
     <h2>
       <p class="article-title">Activity: {{ posts[0].title }}</p>
     </h2>
-    <p class="article-content">Description: {{ posts[0].content }}</p>
   </div>
 </article>
 {% endif %}

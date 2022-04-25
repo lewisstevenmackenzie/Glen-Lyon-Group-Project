@@ -8,19 +8,6 @@ from functools import wraps
 
 from coffeeCalc.calculator import *
 
-# login decorator
-def requires_login(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        #
-        #
-        if kwargs['user'] != session.get('user'):
-            #
-            #
-            return redirect(url_for('login'))
-        return f(*args, **kwargs)
-    return decorated
-
 @app.route("/")
 def home():
     if current_user.is_authenticated:
@@ -162,13 +149,21 @@ def account(user_id):
     posts = Post.query.filter_by(user_id=user_id).all()
     posts.reverse()
 
+    userPostsNum = 0
+
     userPostsNum = len(posts)
+    totalCarbon = 0
 
     if userPostsNum < 1:
         userPostsNum = 0
+    else:
+        i = 0
+        while (i < userPostsNum):
+            totalCarbon += co2_cost(posts[i].weight, posts[i].origin_to_port_distance, posts[i].start_country, posts[i].port_to_client_distance)
+            i = i+1
         
     profile_image = url_for('static', filename='profile_images/' + user.image_file)
-    return render_template('account.html',  user = user, notes = notes, profile_image = profile_image, userPostsnum = userPostsNum, posts = posts)
+    return render_template('account.html',  user = user, notes = notes, profile_image = profile_image, userPostsnum = userPostsNum, posts = posts, totalCarbon = totalCarbon)
 
 @app.route("/account/<int:user_id>/delete", methods=['GET', 'POST'])
 @login_required

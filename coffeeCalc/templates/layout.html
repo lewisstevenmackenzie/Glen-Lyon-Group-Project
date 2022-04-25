@@ -107,8 +107,11 @@
             {% endfor %}
           {% if current_user.is_authenticated %}
           <a class="btn btn-outline-dark" href="{{ url_for('new_note') }}" role = "button">New note</a>
-          <a class="btn btn-outline-dark" href="{{ url_for('new_post') }}" role = "button">Add Activity</a>
+          
           {% endif %}
+          </div>
+          <div class="content-section">
+            <a class="btn btn-outline-dark" href="{{ url_for('new_post') }}" role = "button">Add route</a>
           </div>
         </div>
       </div>
