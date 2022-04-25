@@ -149,8 +149,6 @@ def account(user_id):
     posts = Post.query.filter_by(user_id=user_id).all()
     posts.reverse()
 
-    userPostsNum = 0
-
     userPostsNum = len(posts)
     totalCarbon = 0
 
@@ -223,7 +221,6 @@ def edit_note(note_id):
 @app.route("/note/<int:note_id>/delete", methods=['GET', 'POST'])
 @login_required
 def delete_note(note_id):
-    notes = Note.query.filter_by(note_user_id=current_user.id).all()
     note = Note.query.get_or_404(note_id)
     if note.note_user_id != current_user.id:
         abort(403)
@@ -248,9 +245,7 @@ def explore_users():
 def upload_file():
 
     if request.method == "POST":
-
         if request.files:
-
             image = request.files["image"]
 
             image.save(os.path.join(app.config["IMAGE_UPLOADS"], image.filename))
@@ -258,7 +253,5 @@ def upload_file():
             db.session.commit()
 
             print("Image saved")
-
             return render_template("home.html")
-
     return render_template("update_profile_pic.html")

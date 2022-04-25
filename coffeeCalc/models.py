@@ -6,6 +6,7 @@ from flask_login import UserMixin
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+# User model to create the database table
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
@@ -18,6 +19,7 @@ class User(db.Model, UserMixin):
     def __repre__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
+# Post model to create the database table for routes
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
@@ -33,6 +35,7 @@ class Post(db.Model):
     def __repr__(self):
         return f"Post('{self.title}', '{self.date}')"
 
+# Note model to create the database table for notes
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text, nullable=False)
@@ -41,6 +44,7 @@ class Note(db.Model):
     def __repr__(self):
         return f"Note('{self.content}')"
 
+# Country model to create the database table to store each port
 class Country(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.Text, nullable = False)
