@@ -14,11 +14,14 @@ Sponsor: Frances Ryan
 
 Brief: web application that will calculate the carbon emissions produced by transporting coffee beans from different origin farms to roasteries across the UK
 
-Setup Virtual Enviroment:
-- virtualenv venv
-- source venv/bin/activate
+Clone repository to server: 
+    git clone https://github.com/lewisstevenmackenzie/Glen-Lyon-Group-Project.git
 
-Libraries to Install:
+Walkthrough for hosting available at:
+    https://bdavison.napier.ac.uk/web/server/apache/
+
+
+Libraries to install after creating the virtual environment:
 - pip install Flask
 - pip install flask-wtf
 - pip install email_validator
@@ -27,11 +30,13 @@ Libraries to Install:
 - pip install flask-login
 
 How to Create the Databse:
+Whilst in the servers git directory, run the following commands. 
 - python3
-- from coffeeCalc.init import db
+- from coffeeCalc.__init__ import db
 - db.create_all()
 
 How to add a Country:
+Whilst in the servers git directory, run the following commands. 
 - python3
 - from coffeeCalc.init import db
 - from coffeeCalc.models import Country
@@ -40,6 +45,22 @@ How to add a Country:
 - db.session.commit()
 
 How to host the Website:
-- python3 main.py
+In the myapp.wsgi file replace: 
+  import sys
 
+  sys.path.insert(0, '/usr/local/env/myApp/')
+
+  from app.myApp import application
+
+with: 
+  import sys
+
+  sys.path.insert(0, '/usr/local/env/myApp/')
+
+  from coffeCalc.__init__ import application
+
+run the following command to run the hosting:
+ - sudo a2ensite myApp
+ - sudo service apache2 stop
+ - sudo service apache2 start
 
