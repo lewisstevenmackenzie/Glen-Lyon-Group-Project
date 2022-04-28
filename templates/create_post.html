@@ -1,0 +1,93 @@
+<!-- Extends layout.html -->
+{% extends "layout.html" %} {% block content %}
+<div class="content-section">
+  <!-- New Calculation Form for Logged In Users-->
+  <form method="POST" action="">
+    {{ form.hidden_tag() }}
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">{{ legend }}</legend>
+      <div class="form-group">
+        {{ form.title.label(class="form-control-label") }} {% if
+        form.title.errors %} {{ form.title(class="form-control form-control-lg
+        is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.title.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.title(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+
+      <div class="form-group">
+        {{ form.start_country.label(class="form-control-label") }} {% if
+        form.start_country.errors %} {{ form.start_country(class="form-control form-control-lg
+        is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.start_country.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.start_country(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+
+      <div class="form-group">
+        {{ form.origin_to_port_distance.label(class="form-control-label") }} {% if
+        form.origin_to_port_distance.errors %} {{ form.origin_to_port_distance(class="form-control form-control-lg
+        is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.origin_to_port_distance.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.origin_to_port_distance(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+
+      <div class="form-group">
+        {{ form.end_location.label(class="form-control-label") }} {% if
+        form.end_location.errors %} {{ form.end_location(class="form-control form-control-lg
+        is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.end_location.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.end_location(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+
+      <div class="form-group">
+        {{ form.port_to_client_distance.label(class="form-control-label") }} {% if
+        form.port_to_client_distance.errors %} {{ form.port_to_client_distance(class="form-control form-control-lg
+        is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.port_to_client_distance.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.port_to_client_distance(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+
+      <div class="form-group">
+        {{ form.weight.label(class="form-control-label") }} {% if
+        form.weight.errors %} {{ form.weight(class="form-control form-control-lg
+        is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.weight.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %} {{ form.weight(class="form-control form-control-lg") }} {%
+        endif %}
+      </div>
+
+    </fieldset>
+    <div class="form-group">
+      {{ form.submit(class="btn btn-outline-info") }}
+    </div>
+  </form>
+</div>
+{% endblock content %}

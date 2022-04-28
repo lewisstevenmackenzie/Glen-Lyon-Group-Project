@@ -1,0 +1,12 @@
+<!-- Extends layout.html -->
+<!-- Shows User Accounts -->
+{% extends "layout.html" %} {% block content%} {% for user in users%}
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <img class="rounded-circle account-img" src="static/profile_images/{{ user.image_file }}" />
+      <a class="mr-2" href="{{ url_for('account', user_id=user.id) }}">{{ user.username }}</a>
+    </div>
+  </div>
+</article>
+{% endfor %} {% endblock content %}
