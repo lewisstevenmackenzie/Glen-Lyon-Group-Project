@@ -45,7 +45,7 @@ file_handler.setFormatter(formatter)
 application.logger.setLevel(application.config['log_level'])
 application.logger.addHandler(file_handler)
 
-from coffeeCalc import routes
+from coffeeCalc.routes import *
 
 if __name__ == '__main__':
     application.run()
