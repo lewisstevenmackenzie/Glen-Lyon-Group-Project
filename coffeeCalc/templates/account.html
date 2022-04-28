@@ -1,3 +1,5 @@
+<!-- Extends layout.html -->
+<!-- User Information & number of calculations  & total carbon footprint -->
 {% extends "layout.html" %} {% block content %}
 <div class="content-section">
   <div class="media">
@@ -11,6 +13,7 @@
   </div>
 </div>
 
+<!-- Shows most recent calculation -->
 {% if userPostsnum > 0 %}
 <article class="media content-section">
   <div class="media-body">
@@ -21,12 +24,13 @@
       >
     </div>
     <h2>
-      <p class="article-title">Activity: {{ posts[0].title }}</p>
+      <p class="article-title">Most Recent: {{ posts[0].title }}</p>
     </h2>
   </div>
 </article>
 {% endif %}
 
+<!-- Account Options -->
 <article class="media content-section">
   <div class="media-body">
     <div class="article-metadata">
@@ -42,11 +46,6 @@
           href="{{ url_for('delete_account', user_id=user.id) }}"
           >Delete Account</a
         >
-      </div>
-
-      {% else %}
-      <div>
-        <a class="btn btn-primary btn-sm mt mb-1" href="#">Follow User</a>
       </div>
       {% endif %}
     </div>

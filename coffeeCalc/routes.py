@@ -1,14 +1,14 @@
 import os
 from flask import render_template, url_for, flash, redirect, request, abort
-from coffeeCalc import app, db, bcrypt
+from coffeeCalc import application, db, bcrypt
 from coffeeCalc.forms import SignUpForm, LoginForm, PostForm, NoteForm, QuickCalcForm
 from coffeeCalc.models import User, Post, Note, Country
 from flask_login import login_user, current_user, logout_user, login_required
-from functools import wraps
 
 from coffeeCalc.calculator import *
 
-@app.route("/")
+# home page
+@application.route("/")
 def home():
     if current_user.is_authenticated:
         posts = Post.query.filter_by(user_id=current_user.id).all()
@@ -19,18 +19,16 @@ def home():
     
     return sign_up()
 
-@app.route("/about")
+# about page
+@application.route("/about")
 def about():
     if current_user.is_authenticated:
         notes = Note.query.filter_by(note_user_id=current_user.id).all()
         return render_template('about.html', title = 'about', notes = notes)
     return render_template('about.html', title = 'about')
 
-@app.route("/error404")
-def error404():
-    return render_template('error404.html', title = 'error404')
-
-@app.route("/signup", methods=['GET', 'POST'])
+# new user page
+@application.route("/signup", methods=['GET', 'POST'])
 def sign_up():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
@@ -44,8 +42,8 @@ def sign_up():
         return redirect(url_for('login'))
     return render_template('sign_up.html', title='Sign Up', form=form)
 
-
-@app.route("/login", methods=['GET', 'POST'])
+# login user page
+@application.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('home'))
@@ -54,17 +52,20 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
+            application.logger.info('Log in attempt for user:' + user)
             return redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
-@app.route("/logout")
+# logout user page
+@application.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@app.route("/calculation", methods=['GET', 'POST'])
+# calculator page for guest users
+@application.route("/calculation", methods=['GET', 'POST'])
 def calculation():
     form = QuickCalcForm()
     form.start_country.choices = [(country.title) for country in Country.query.all()]
@@ -74,7 +75,8 @@ def calculation():
         return render_template('calculation.html', title = 'calculation', form = form, co2 = carbon_cost)    
     return render_template('calculation.html', title = 'calculation', form = form,  co2 = "0")
 
-@app.route("/post/new", methods=['GET', 'POST'])
+# new calculation for logged in users
+@application.route("/post/new", methods=['GET', 'POST'])
 @login_required
 def new_post():
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
@@ -90,8 +92,8 @@ def new_post():
         return redirect(url_for('home'))
     return render_template('create_post.html', title = 'New Post', form = form,legend = 'Create Post', notes = notes)
 
-
-@app.route("/post/<post_id>")
+# view calculation for logged in users
+@application.route("/post/<post_id>")
 def post(post_id):
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
     post = Post.query.get_or_404(post_id)
@@ -99,7 +101,8 @@ def post(post_id):
     profile_image = url_for('static', filename='profile_images/' + user.image_file)
     return render_template('post.html', title = post.title, post = post, notes = notes, profile_image=profile_image)
 
-@app.route("/post/<int:post_id>/edit", methods=['GET', 'POST'])
+# edit calculation for logged in users
+@application.route("/post/<int:post_id>/edit", methods=['GET', 'POST'])
 @login_required
 def edit_post(post_id):
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
@@ -130,7 +133,8 @@ def edit_post(post_id):
 
     return render_template('create_post.html', title='edit Post', form=form, legend='edit Post', notes = notes)
 
-@app.route("/post/<int:post_id>/delete", methods=['GET', 'POST'])
+# delete calculation for logged in users
+@application.route("/post/<int:post_id>/delete", methods=['GET', 'POST'])
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
@@ -141,7 +145,8 @@ def delete_post(post_id):
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('home'))
 
-@app.route("/account/<int:user_id>")
+# user account page
+@application.route("/account/<int:user_id>")
 @login_required
 def account(user_id):
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
@@ -163,7 +168,8 @@ def account(user_id):
     profile_image = url_for('static', filename='profile_images/' + user.image_file)
     return render_template('account.html',  user = user, notes = notes, profile_image = profile_image, userPostsnum = userPostsNum, posts = posts, totalCarbon = totalCarbon)
 
-@app.route("/account/<int:user_id>/delete", methods=['GET', 'POST'])
+# delete user account
+@application.route("/account/<int:user_id>/delete", methods=['GET', 'POST'])
 @login_required
 def delete_account(user_id):
     user = User.query.get_or_404(user_id)
@@ -180,15 +186,15 @@ def delete_account(user_id):
     flash('Your account has been deleted!', 'success')
     return redirect(url_for('login'))
 
-
-@app.route("/note/<note_id>")
+# view note for user account
+@application.route("/note/<note_id>")
 def note(note_id):
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
     note = Note.query.get_or_404(note_id)
     return render_template('note.html', note = note, notes = notes)
 
-
-@app.route("/note/new", methods=['GET', 'POST'])
+# create new note for user account
+@application.route("/note/new", methods=['GET', 'POST'])
 @login_required
 def new_note():
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
@@ -201,7 +207,8 @@ def new_note():
         return redirect(url_for('home'))
     return render_template('create_note.html', title = 'New note', form = form, legend = 'Create note', notes = notes)
 
-@app.route("/note/<int:note_id>/edit", methods=['GET', 'POST'])
+# edit note for user account
+@application.route("/note/<int:note_id>/edit", methods=['GET', 'POST'])
 @login_required
 def edit_note(note_id):
     notes = Note.query.filter_by(note_user_id=current_user.id).all()
@@ -218,7 +225,8 @@ def edit_note(note_id):
         form.content.data = note.content
     return render_template('create_note.html', title='edit note', form=form, legend='edit note', notes = notes)
 
-@app.route("/note/<int:note_id>/delete", methods=['GET', 'POST'])
+# delete note for user account
+@application.route("/note/<int:note_id>/delete", methods=['GET', 'POST'])
 @login_required
 def delete_note(note_id):
     note = Note.query.get_or_404(note_id)
@@ -229,7 +237,8 @@ def delete_note(note_id):
     flash('Your note has been deleted!', 'success')
     return redirect(url_for('home'))
 
-@app.route("/exploreUsers")
+# see other user accounts
+@application.route("/exploreUsers")
 def explore_users():
     if current_user.is_authenticated:
         users = User.query.all()
@@ -240,18 +249,23 @@ def explore_users():
     
     return sign_up()
 
-
-@app.route("/upload_file", methods=["GET", "POST"])
+# upload new user profile avatar
+@application.route("/upload_file", methods=["GET", "POST"])
 def upload_file():
 
     if request.method == "POST":
         if request.files:
             image = request.files["image"]
 
-            image.save(os.path.join(app.config["IMAGE_UPLOADS"], image.filename))
+            image.save(os.path.join(application.config["IMAGE_UPLOADS"], image.filename))
             current_user.image_file=image.filename
             db.session.commit()
 
             print("Image saved")
             return render_template("home.html")
     return render_template("update_profile_pic.html")
+
+# error 404 page
+@application.errorhandler(404)
+def page_not_found(error):
+    return render_template('error404.html', title = error)

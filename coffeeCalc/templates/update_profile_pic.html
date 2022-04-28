@@ -1,10 +1,11 @@
+<!-- Extends layout.html -->
+<!-- Upload User Avatar Picture -->
 {% extends "layout.html" %} {% block content %}
-
 <div class="container">
   <div class="row">
     <div class="col">
       <h1>Upload an image</h1>
-      <hr />
+      <hr>
       <form action="/upload_file" method="POST" enctype="multipart/form-data">
         <div class="form-group">
           <label>Select image</label>

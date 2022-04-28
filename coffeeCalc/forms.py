@@ -1,9 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, DecimalField, SelectField
-from flask_login import current_user
 from wtforms.validators import DataRequired, Length, Email, EqualTo, NumberRange
-from flask_wtf.file import FileField, FileRequired, FileAllowed
-from coffeeCalc.models import User
 
 # Form used by the signup html page to validate a new user
 class SignUpForm(FlaskForm):

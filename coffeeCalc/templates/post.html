@@ -1,12 +1,12 @@
+<!-- Extends layout.html -->
+<!-- Show User Account Calculation -->
 {% extends "layout.html" %} {% block content%}
 <article class="media content-section">
   <div class="media-body">
     <img class="rounded-circle account-img" src="{{ profile_image }}" />
     <div class="article-metadata">
       <p class="font-weight-bold">User: {{ post.client.username }}</p>
-      <small class="text-muted"
-        >Date: {{ post.date.strftime('%Y-%m-%d') }}</small
-      >
+      <small class="text-muted">Date: {{ post.date.strftime('%Y-%m-%d') }}</small>
     </div>
     <h2 class="article-title">Trip: {{ post.title }}</h2>
     <h4 class="article-content">Start Country: {{ post.start_country }}</h4>
@@ -16,16 +16,8 @@
   </div>
   {% if post.client == current_user %}
   <div>
-    <a
-      class="btn btn-secondary btn-sm mt-1 mb-1"
-      href="{{ url_for('edit_post', post_id=post.id) }}"
-      >Edit</a
-    >
-    <a
-      class="btn btn-danger btn-sm mt mb-1"
-      href="{{ url_for('delete_post', post_id=post.id) }}"
-      >Delete</a
-    >
+    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('edit_post', post_id=post.id) }}">Edit</a>
+    <a class="btn btn-danger btn-sm mt mb-1" href="{{ url_for('delete_post', post_id=post.id) }}">Delete</a>
   </div>
   {% endif %}
 </article>
