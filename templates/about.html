@@ -1,0 +1,36 @@
+<!-- Extends layout.html -->
+<!-- Contains information on the website and instructions on how to use it -->
+{% extends "layout.html" %} {% block content %}
+<article class="media content-section">
+  <div class="media-body">
+    <h2 >Description</h2>
+    <p class="article-content">
+      This website is the result of a project where we set out to provide an easy-to-use carbon footprint calculator for importing coffee beans into the United Kingdom. The results of this calculation allow coffee bean roasteries to more accurately offset their carbon emmisions. The website was built in conjunction with Glen Lyon Coffee Roasters by students of Edinburgh Napier University. The source code for the website can be found at https://github.com/lewisstevenmackenzie/Glen-Lyon-Group-Project .
+    </p>
+  </div>
+  <div class="media-body">
+    <h2 >How to Use</h2>
+    <p>
+      Instructions <br>
+      <br>
+      Non-logged in Users:<br>
+        • Navigate to the calculator page.<br>
+        • Select the origin country from the drop down menu.<br>
+        • Input the distance from the coffee plantation to the Port (km). <br>
+        • Insert the distance from Tillbury Docks to the UK Roastery (km). <br>
+        • Finally input the total weight of the package (kg). <br>
+        • Now click the submit option and the carbon emissions will be displayed below in kg. <br><br>
+
+      Logged in Users:<br>
+        • Log in and select add route. <br>
+        • Choose a title for the current calculation. <br>
+        • Select the origin country from the drop down menu. <br>
+        • Input the distance from the coffee plantation to the Port (km). <br>
+        • Add a name for the end location. <br>
+        • Insert the distance from Tillbury Docks to the UK Roastery (km). <br>
+        • Finally input the total weight of the package (kg). <br>
+        • Now click the submit, this will now post the calculation to the users home page. <br>
+    </p>
+  </div>
+</article>
+{% endblock content %}
